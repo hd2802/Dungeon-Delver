@@ -45,7 +45,7 @@ To get started with the project, you can follow these steps:
 3. Clone the repository there using the command `git clone https://github.com/hd2802/ESP.git`
 
 
-## Pushing Code
+## Pushing Code
 Once you have the repository on your local machine, you can make changes or add features. Here's a simple guide:
    - Create a new branch: `git checkout -b my-new-feature`
    - Make changes to the code or project.
