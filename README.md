@@ -9,7 +9,7 @@ Welcome to our ESP Group 15 repository for our Dungeons and Dragons Helper Websi
 - [Link to Project](#project)
 - [Features](#features)
 - [Getting Started](#getting-started)
-- [Pushing Code](#push-guide)
+- [Pushing Code](#pushing-code)
 - [Git Tips and Tricks](#tips-and-tricks)
 
 ## About
