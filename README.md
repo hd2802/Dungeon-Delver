@@ -8,6 +8,9 @@ Welcome to our ESP Group 15 repository for our Dungeons and Dragons Helper Websi
 - [About](#about)
 - [Link to Project](#project)
 - [Features](#features)
+    - [Implemented](#implemented)
+    - [Development](#development)
+    - [Future Features](#future-features)
 - [Getting Started](#getting-started)
 - [Pushing Code](#pushing-code)
 - [Git Tips and Tricks](#tips-and-tricks)
@@ -19,11 +22,19 @@ This respository tracks the ongoing development of the Dungeons and Dragons Help
 The project can be found at: https://github.com/users/hd2802/projects/4
 
 ## Features
+A list of the features that are currently in or will be in the project
+
+### Implemented
 At present, these features have currently been implemented:
 - **Implemented one**: Description
 
+### Development
 At present, these features are currently under development
 - **Developemnt one**: Description
+
+### Future Features
+These are the features which are to be added in the near future:
+- **Feature one**: Description
 
 As the project progresses, the features will be identified, developed and added
 
