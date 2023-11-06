@@ -5,6 +5,7 @@ Note: working title for project
 Welcome to our ESP Group 15 repository for our Dungeons and Dragons Helper Website.
 
 ## Table of Contents
+- [Warning](#warning)
 - [About](#about)
 - [Link to Project](#project)
 - [Features](#features)
@@ -14,6 +15,9 @@ Welcome to our ESP Group 15 repository for our Dungeons and Dragons Helper Websi
 - [Getting Started](#getting-started)
 - [Pushing Code](#pushing-code)
 - [Git Tips and Tricks](#tips-and-tricks)
+
+## Warning
+GitHub does not allow the `main` branch of private repositories to be protected. Please make sure that you are editing a new branch (i.e. not `main`) when making any changes to code - specifically when pushing code.
 
 ## About
 This respository tracks the ongoing development of the Dungeons and Dragons Helper Wesbite for the CM20314 Module project.
