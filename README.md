@@ -19,7 +19,7 @@ Welcome to our ESP Group 15 repository for our Dungeons and Dragons Helper Websi
 This respository tracks the ongoing development of the Dungeons and Dragons Helper Wesbite for the CM20314 Module project.
 
 ## Link to Project
-The project can be found at: https://github.com/users/hd2802/projects/4
+The project can be found at: https://github.com/users/hd2802/projects/7
 
 ## Features
 A list of the features that are currently in or will be in the project
