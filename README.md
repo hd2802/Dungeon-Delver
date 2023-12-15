@@ -1,8 +1,6 @@
-# ESP
+# Dungeon Delver
 
-Note: working title for project
-
-Welcome to our ESP Group 15 repository for our Dungeons and Dragons Helper Website.
+ESP Group 15 repository for our Dungeons and Dragons Helper Website.
 
 ## Table of Contents
 - [About](#about)
