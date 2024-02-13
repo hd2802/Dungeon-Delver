@@ -1,0 +1,44 @@
+#outer-div {
+    display: flex;
+    justify-content: space-between;
+    margin: 16px;
+}
+  
+#left-hand-side {
+    width: 50%;
+}
+  
+#right-hand-side {
+    width: 45%; 
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#button-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+  
+.text-box {
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+}
+
+.explaination-box {
+    padding: 20px;
+    background-color: #adadad;
+    border-radius: 8px;
+}
+  
+.character-page {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+}
+  
+.navigation-arrows {
+    margin-top: 20px;
+}
