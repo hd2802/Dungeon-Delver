@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import Button from '../components/Button.js';
+import Button from '../components/Button/Button.js';
 import '../styles/TrialCampaign.css';
 
 const characters = [
@@ -88,10 +88,8 @@ const TrialCampaign = () => {
 
                 <p class='text-box'>
                     To help you embark on this journey, there are a selection of pre-determined characters on the other side of the page for you to choose from.
-
-                    <p>
-                        Often, the class and race of a character changes how you can interact with the world around you, so it is encouraged to replay this camapign to get a feel of the different playstyles of the game.
-                    </p>
+                    <br></br>
+                    Often, the class and race of a character changes how you can interact with the world around you, so it is encouraged to replay this camapign to get a feel of the different playstyles of the game.
                 </p>
 
                 <p class='text-box'>

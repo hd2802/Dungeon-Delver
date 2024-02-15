@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import Button from '../../components/Button.js';
+import Button from '../../components/Button/Button.js';
 import '../../styles/TrialCampaign.css';
 
 
