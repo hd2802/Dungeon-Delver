@@ -42,8 +42,7 @@ import CampaignEndStealth from './pages/trial-campaign-pages/CampaignEndStealth.
 
 const Router = () => {
   return (
-    <>
-      <Routes>
+    <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/trial-campaign" element={<TrialCampaign/>} />
         <Route path="/barb-page-1" element={<Barb1/>}/>
@@ -81,8 +80,7 @@ const Router = () => {
         <Route path="/rogue-page-2-3" element={<Rogue23/>}/>
         <Route path='/campaign-end-bandit' element={<CampaignEndBandit/>}/>
         <Route path='/campaign-end-stealth' element={<CampaignEndStealth/>}/>
-      </Routes>
-    </>
+    </Routes>
   );
 }
 

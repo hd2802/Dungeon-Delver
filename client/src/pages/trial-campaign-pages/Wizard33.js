@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import '../../styles/TrialCampaign.css';
-import Button from '../../components/Button.js';
+import Button from '../../components/Button/Button.js';
 
 const Wizard33 = () => {
 
