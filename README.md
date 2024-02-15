@@ -79,12 +79,10 @@ Make your changes to the code and use the following commands to commit them
 
 ```bash
 git add .
-git commit -m "resolves issue #<issue-number>"
+git commit -m "<commit-message>"
 ```
 
-This provides a link to the relevant issue (which should provide a sufficient description of the commit).
-
-If the change is not linked to an issue, use the following commit conventions found [here](https://www.conventionalcommits.org/en/v1.0.0/)
+Use the following commit conventions found [here](https://www.conventionalcommits.org/en/v1.0.0/)
 
 ### 6. Push changes
 Push your changes to the remote repository
