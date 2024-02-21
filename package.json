@@ -1,7 +1,7 @@
 {
   "name": "esp",
   "version": "1.0.0",
-  "description": "",
+  "description": "1. [Dungeon Delver (ESP Project Group 15)](#dungeon-delver-esp-project-group-15)\r 2. [Languages and Frameworks Used](#languages-and-frameworks-used)\r 3. [Prerequisites](#prerequisites)\r 4. [Development Guidelines](#development-guidelines)\r 5. [Getting Started](#getting-started)\r    1. [Install Git](#1-install-git)\r    2. [Clone the Repository](#2-clone-the-repository)\r    3. [Navigate to the Project Folder](#3-navigate-to-the-project-folder)\r    4. [Create a branch](#4-create-a-branch)\r    5. [Make changes and commit](#5-make-changes-and-commit)\r    6. [Push changes](#6-push-changes)\r    7. [Open a pull request](#7-open-a-pull-request)\r 6. [Unit Testing](#unit-testing)\r    1. [Install Dependencies](#1-install-dependencies)\r    2. [Writing Unit Tests](#2-writing-unit-tests)\r    3. [Code Coverage](#3-code-coverage)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
