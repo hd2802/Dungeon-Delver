@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Dungeon-Delver
 
-## Getting Started
-
+## Running the Website
 First, run the development server:
 
-```bash
+```
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
+## Getting Help
 
 To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+The idea is that Next.js configures both the front end and the back end of the website - without much use of alternative frameworks.
 
-## Deploy on Vercel
+## Using Git
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+To start writing code, create a branch
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+``` 
+git checkout -b <branch-name>
+```
+
+Branch names can be anything but include your initials (so we know who authors what change) and some information about what the branch contains.
+
+Try to keep each branch or commit confined to one domain. For example, if you need to edit both the frontend and backend, be sure to do this on different branches and different commits. 
+
+Then, write some code!
+
+When you are done and want to push it, run the following command
+
+```
+git add .
+```
+
+This stages all your changes for a commit - i.e. it means that all of the files that you have changed on your machine will be changed on the git repository. 
+
+Commit the changes using the following command:
+
+```
+git commit -m "<commit-message>"
+```
+
+Commit messages need to start capitalised and describe the changes briefly, in the present tense. 
+
+For example, suppose that I made a commit that changes this file, the commit message would be `Changes README.md` or something along those lines.
+
+Navigate to the repository and create a merge request.
+
+Our repository is private so we cannot protect the main branch but please do not merge the branch straight away, even if Git approves it. 
+
+For greater code quality we need to make sure that people approve the merge request and that it fulfills the requirement or task as needed.
+
+Once your merge request has been approved by the rest of the team, your code has been integrated into the website! Well done! 
