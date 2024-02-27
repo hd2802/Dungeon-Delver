@@ -1,3 +1,7 @@
+.outer-div {
+    padding: 32px;
+}
+
 .left-hand-div {
     width: 50%;
     float: left;
@@ -9,12 +13,23 @@
 
 .right-hand-div {
     width: 40%;
+    height: 300px;
     float: right;
     display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
 }
 
-Card {
+.card {
     background-color: grey;
+    color: white;
+    border-radius: 16px;
+    padding: 16px;
+    margin: 16px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+    align-self: center;
 }
 
 button {
