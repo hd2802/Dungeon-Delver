@@ -46,7 +46,7 @@ export default function TrialCampaign() {
     switch (currentScene) {
       case "introduction":
         return (
-          <div>
+          <div className="outer-div">
             <div className="left-hand-div">
               <h1> Your First Adventure!</h1>
               <p>
@@ -77,12 +77,17 @@ export default function TrialCampaign() {
                 Start Your Adventure!
               </button>
             </div>
+            <div className="right-hand-div">
+              <div className="card">
+                These tooltips will provide further information about key D&D mechanics that you will encounter.
+              </div>
+            </div>
           </div>
         );
       // The starting case
       case "start":
         return (
-          <div>
+          <div className="outer-div">
             <div className="left-hand-div">
               <h1> The Adventure Begins ... </h1>
               <p>
@@ -119,6 +124,13 @@ export default function TrialCampaign() {
                 </div>
               </p>
             </div>
+            <div className="right-hand-div">
+              <div className="card"> 
+                  The Dungeon Master will often present you an environment that you can explore freely. 
+
+                  The DM will often highlight areas of interest but you can investigate and interact with anything in a scene.
+              </div>
+            </div>
           </div>
         );
 
@@ -147,6 +159,12 @@ export default function TrialCampaign() {
                 </button>
               </div>
             </div>
+            <div className="right-hand-div">
+              <div className="card"> 
+                  Different choices lead to different outcomes, which you can navigate as you please. If this was a real game of D&D, you would
+                  have a wider range of options that you can choose from - as far as your imagination would take you.
+              </div>
+            </div>
           </div>
         );
 
@@ -162,6 +180,11 @@ export default function TrialCampaign() {
                 one gold coin for the barkeep.
               </p>
               <button onClick={() => handleChoice("continue")}>Continue</button>
+            </div>
+            <div className="right-hand-div">
+              <div className="card"> 
+                  The D&D world has currency. Currency allows you to buy a wide range of items, from ale to armour.
+              </div>
             </div>
           </div>
         );
@@ -211,6 +234,15 @@ export default function TrialCampaign() {
                 </button>
               )}
             </div>
+            <div className="right-hand-div">
+              <div className="card"> 
+                  Here you have triggered a skill check.
+                  <br></br>
+                  <br>
+                  </br>
+                  D&D is based around abilities - that is, how good your character is at a specific skill. Everything is decided by a dice roll, but if your character is particularly good at a skill, they will be able to add a number to the result of the roll - or take a number away if they are particularly bad!
+              </div>
+            </div>
           </div>
         );
 
@@ -243,6 +275,12 @@ export default function TrialCampaign() {
                 <button onClick={() => handleChoice("spell")}>
                   Cast a Spell to Cause a Distraction
                 </button>
+              </div>
+            </div>
+            <div className="right-hand-div">
+              <div className="card"> 
+                  Different choices lead to different outcomes, which you can navigate as you please. If this was a real game of D&D, you would
+                  have a wider range of options that you can choose from - as far as your imagination would take you.
               </div>
             </div>
           </div>
@@ -295,7 +333,16 @@ export default function TrialCampaign() {
                 </button>
               )}
             </div>
-          </div>
+            <div className="right-hand-div">
+            <div className="card"> 
+                  Here you have triggered a skill check.
+                  <br></br>
+                  <br>
+                  </br>
+                  D&D is based around abilities - that is, how good your character is at a specific skill. Everything is decided by a dice roll, but if your character is particularly good at a skill, they will be able to add a number to the result of the roll - or take a number away if they are particularly bad!
+              </div>
+            </div>
+            </div>
         );
 
       // path 2 - mercenaries
@@ -321,6 +368,11 @@ export default function TrialCampaign() {
               </p>
               <button onClick={() => handleChoice("continue")}>Continue</button>
             </div>
+            <div className="right-hand-div">
+              <div className="card"> 
+                  Spellcasting is a feature that is available to certain classes. There is a wide range of spells that allow you to do different things: from attacking an enemy to magically altering your appearance.
+              </div>
+            </div>
           </div>
         );
 
@@ -345,6 +397,13 @@ export default function TrialCampaign() {
                 </button>
               </div>
             </div>
+            <div className="right-hand-div">
+              <div className="card"> 
+                  Different choices lead to different outcomes, which you can navigate as you please. If this was a real game of D&D, you would
+                  have a wider range of options that you can choose from - as far as your imagination would take you.
+              </div>
+            </div>
+            
           </div>
         );
 
@@ -392,6 +451,15 @@ export default function TrialCampaign() {
                   Continue
                 </button>
               )}
+            </div>
+            <div className="right-hand-div">
+            <div className="card"> 
+                  Here you have triggered a skill check.
+                  <br></br>
+                  <br>
+                  </br>
+                  D&D is based around abilities - that is, how good your character is at a specific skill. Everything is decided by a dice roll, but if your character is particularly good at a skill, they will be able to add a number to the result of the roll - or take a number away if they are particularly bad!
+              </div>
             </div>
           </div>
         );
@@ -453,6 +521,11 @@ export default function TrialCampaign() {
               </p>
               <button onClick={() => handleChoice("attack")}>Continue</button>
             </div>
+            <div className="right-hand-div">
+            <div className="card"> 
+                  Not everything is peaceful in D&D. Often, there are creatures and beings that want to attack you, and sometimes there are creatures and beings that you will want to attack.
+              </div>
+            </div>
           </div>
         );
 
@@ -507,6 +580,13 @@ export default function TrialCampaign() {
                 </p>
               )}
             </div>
+            <div className="right-hand-div">
+            <div className="card"> 
+                  Attack is based on the attacker rolling a D-20, that is, a 20 sided dice. Every character has an armour class (AC) - a number that denotes how tough they are to hit.
+                  If an attacker attempts to hit someone with an armour class of 15 and they roll a 14, the attack misses! <br></br><br></br>
+                  Only after an attack hits do you roll another dice to determine how much damage that you do to a character, or how many health points you take away.
+              </div>
+            </div>
           </div>
         );
 
@@ -547,6 +627,11 @@ export default function TrialCampaign() {
                 </p>
               )}
             </div>
+            <div className="right-hand-div">
+            <div className="card"> 
+                  Much like how you had to roll to attack the bandit, the bandit has to roll a dice to determine if he hits you.
+              </div>
+            </div>
           </div>
         );
       case "end":
@@ -570,13 +655,18 @@ export default function TrialCampaign() {
               </p>
               <button onClick={() => handleChoice(" ")}>Conclusion</button>
             </div>
+            <div className="right-hand-div">
+            <div className="card"> 
+                  You have just had your first experience of D&D combat! There is a lot to take in but it is easily absorbed with experience.
+              </div>
+            </div>
           </div>
         );
 
       default:
         return (
-          <div>
-            <div className="left-hand-side">
+          <div className="outer-div">
+            <div className="left-hand-div">
               <h1> Your First Adventure! </h1>
               <p> Thus concludes your first D&D adventure!</p>
               <p>
@@ -592,6 +682,11 @@ export default function TrialCampaign() {
                 D&D or, replay the campaign!
               </p>
               <button onClick={() => handleChoice("start")}>Replay!</button>
+            </div>
+            <div className="right-hand-div">
+            <div className="card"> 
+                  Links:
+              </div>
             </div>
           </div>
         );
