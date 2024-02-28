@@ -62,3 +62,24 @@ Our repository is private so we cannot protect the main branch but please do not
 For greater code quality we need to make sure that people approve the merge request and that it fulfills the requirement or task as needed.
 
 Once your merge request has been approved by the rest of the team, your code has been integrated into the website! Well done! 
+
+## Testing
+
+The testing environment that we are choosing to use is Playwright. This allows for greater testing of web-specific applications.
+
+To run tests:
+```
+npx playwright test
+```
+
+To view the report for the tests:
+```
+npx playwright show-report
+```
+
+To run the tests with a UI:
+```
+npx playwright test --ui
+```
+
+For information on writing tests and further information about playwright, see [Playwright website](https://playwright.dev/) 
