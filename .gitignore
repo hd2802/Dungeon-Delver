@@ -40,3 +40,7 @@ next-env.d.ts
 
 # Environemnt variable file
 .env
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
