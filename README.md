@@ -1,19 +1,9 @@
 # Dungeon-Delver
 
-## Technologies Used and Why
-
-### Next.js
-Next.js is a React Framework that has the following advantages that made it beneficial to our project
-- Speed: it is fast to load the webpage and to compile when developing - allowing for a responsive website and a smooth development cycle
-- Backend: easy and fast backend integration 
-- Routing: page routing in Next is simple and efficient, again aiding development
-- Support with other libraries: Next supports the other libraries that are used in the project with ease
-
-### Typescript
-Typescript is a compiled version of Javascript that supports types. This is used in the project to allow for greater code quality.
-
-### Prisma
-Prisma is a database communication tool. It utilises familiar database scheme and easy integration with Next.js that makes communication with databases simple and straightforwad.
+## Technologies Used
+- Development: Next.js (React, Javascript, HTML, CSS)
+- Testing: Playwright
+- Database: Prisma
 
 ## Running the Website
 First, run the development server:
