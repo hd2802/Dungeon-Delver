@@ -1,8 +1,20 @@
 "use client";
 import "../styles/TrialCampaign.css";
+import Image from "next/image";
 import React, { useState } from "react";
+import barkeepImg from "../../public/images/barkeep.jpg";
+import coinImg from "../../public/images/coin.jpg";
+import mercenaryImg from "../../public/images/mercenaries.jpg";
+import hoodedImg from "../../public/images/hooded.jpg";
+import spellImg from "../../public/images/spell.jpg";
+import banditImg from "../../public/images/bandit.jpg";
+import cheersImg from "../../public/images/cheers.jpg";
+import partyImg from "../../public/images/party.jpg";
+import tavernImg from "../../public/images/tavern.jpg";
+import dmImg from "../../public/images/dm.jpg";
 
 export default function TrialCampaign() {
+  // contain the variables for use later 
   const [currentScene, setCurrentScene] = useState("introduction");
   const [persuasionResult, setPersuasionResult] = useState<number | null>(null);
   const [intimidationResult, setIntimidationResult] = useState<number | null>(null);
@@ -42,6 +54,7 @@ export default function TrialCampaign() {
     }
   };
 
+  // Function that handles the different paths through the story
   const renderScene = () => {
     switch (currentScene) {
       case "introduction":
@@ -55,6 +68,13 @@ export default function TrialCampaign() {
                 to play. But do not worry! It is often noted that the best way
                 to learn how to play the game is simply by playing it.
               </p>
+              <div className="image-div">
+              <Image
+                src={partyImg}
+                alt="An adventuring party"
+                width={400}>
+              </Image>
+              </div>
               <p>
                 The following trial campaign serves as a mock encounter for you
                 to experience. The aim is to introduce the key mechanics of D&D
@@ -73,13 +93,18 @@ export default function TrialCampaign() {
                 So, when you are ready adventurer, enter the world of Dungeons
                 and Dragons.
               </p>
+              <div className="one-button-div">
               <button onClick={() => handleChoice("start")}>
                 Start Your Adventure!
               </button>
+              </div>
             </div>
             <div className="right-hand-div">
               <div className="card">
-                These tooltips will provide further information about key D&D mechanics that you will encounter.
+                <h2 className="card-header"> Tooltips</h2>
+                <p className="card-content">
+                  These tooltips will provide information about the mechanics throughout your adventure!
+                  </p>
               </div>
             </div>
           </div>
@@ -92,10 +117,21 @@ export default function TrialCampaign() {
               <h1> The Adventure Begins ... </h1>
               <p>
                 You find yourself in a tavern - the air thick with the scent of
-                ale and the warmth of chatter among the patrons. The tavern
+                ale and the warmth of chatter among the patrons. 
+              </p>
+              <div className="image-div">
+              <Image
+                src={tavernImg}
+                alt="A busy tavern"
+                width={400}>
+              </Image>
+              </div>
+              <p>
+              The tavern
                 appears to be as you'd expect for a village settlement, with the
                 regular gaggle of tavern-goer characters attending. As you take
                 in your surroundings, there are a few things that interest you:
+              </p>
                 <ol>
                   <li>
                     The barkeep: a grizzled man with a hearty laugh; polishing
@@ -122,10 +158,10 @@ export default function TrialCampaign() {
                     Investigate the Hooded Figure
                   </button>
                 </div>
-              </p>
             </div>
             <div className="right-hand-div">
               <div className="card"> 
+              <h2 className="card-header"> Exploration</h2>
                   The Dungeon Master will often present you an environment that you can explore freely. 
 
                   The DM will often highlight areas of interest but you can investigate and interact with anything in a scene.
@@ -148,6 +184,13 @@ export default function TrialCampaign() {
                 He immediately pours out some ale in a flagon for you, without
                 asking.
               </p>
+              <div className="image-div">
+              <Image
+                src={barkeepImg}
+                alt="Barkeep"
+                width={400}>
+              </Image>
+              </div>
               <p>"Coin?" He booms out.</p>
               <p>What would you like to do?</p>
               <div className="button-div">
@@ -161,6 +204,7 @@ export default function TrialCampaign() {
             </div>
             <div className="right-hand-div">
               <div className="card"> 
+              <h2 className="card-header"> Choices and Decisions</h2>
                   Different choices lead to different outcomes, which you can navigate as you please. If this was a real game of D&D, you would
                   have a wider range of options that you can choose from - as far as your imagination would take you.
               </div>
@@ -179,10 +223,20 @@ export default function TrialCampaign() {
                 Reluctanctly, you reach your hand into your pocket and produce
                 one gold coin for the barkeep.
               </p>
+              <div className="image-div">
+              <Image
+                src={coinImg}
+                alt="Coin"
+                width={400}>
+              </Image>
+              </div>
+              <div className="one-button-div">
               <button onClick={() => handleChoice("continue")}>Continue</button>
+              </div>
             </div>
             <div className="right-hand-div">
               <div className="card"> 
+              <h2 className="card-header"> Currency</h2>
                   The D&D world has currency. Currency allows you to buy a wide range of items, from ale to armour.
               </div>
             </div>
@@ -200,6 +254,13 @@ export default function TrialCampaign() {
                 actually need to pay for the ale as you did not actually ask for
                 it. He raises an eyebrow at you.
               </p>
+              <div className="image-div">
+              <Image
+                src={barkeepImg}
+                alt="Barkeep"
+                width={400}>
+              </Image>
+              </div>
               <button onClick={() => rollDice(20, "persuasion")}>
                 Roll for Persuasion
               </button>
@@ -229,17 +290,16 @@ export default function TrialCampaign() {
                 </p>
               )}
               {persuasionResult !== null && (
+                <div className="one-button-div">
                 <button onClick={() => handleChoice("continue")}>
                   Continue
                 </button>
+                </div>
               )}
             </div>
             <div className="right-hand-div">
               <div className="card"> 
-                  Here you have triggered a skill check.
-                  <br></br>
-                  <br>
-                  </br>
+              <h2 className="card-header"> Skill Checks</h2>
                   D&D is based around abilities - that is, how good your character is at a specific skill. Everything is decided by a dice roll, but if your character is particularly good at a skill, they will be able to add a number to the result of the roll - or take a number away if they are particularly bad!
               </div>
             </div>
@@ -261,6 +321,13 @@ export default function TrialCampaign() {
               </p>
 
               <p>They then notice that you are staring at them.</p>
+              <div className="image-div">
+              <Image
+                src={mercenaryImg}
+                alt="Mercenaries"
+                width={400}>
+              </Image>
+              </div>
 
               <p>
                 A gaggle of shouts and jeers approach your way as one of the
@@ -279,6 +346,7 @@ export default function TrialCampaign() {
             </div>
             <div className="right-hand-div">
               <div className="card"> 
+              <h2 className="card-header"> Choices and Decisions</h2>
                   Different choices lead to different outcomes, which you can navigate as you please. If this was a real game of D&D, you would
                   have a wider range of options that you can choose from - as far as your imagination would take you.
               </div>
@@ -297,9 +365,18 @@ export default function TrialCampaign() {
                 rising. You choke back your fear and square up to the bandit,
                 attempting to intimidate him.
               </p>
+              <div className="image-div">
+              <Image
+                src={mercenaryImg}
+                alt="Mercenaries"
+                width={400}>
+              </Image>
+              </div>
+              <div className="one-button-div">
               <button onClick={() => rollDice(20, "intimidation")}>
                 Roll for Intimidation
               </button>
+              </div>
               {intimidationResult !== null && (
                 <p> Your roll: {intimidationResult}</p>
               )}
@@ -328,17 +405,16 @@ export default function TrialCampaign() {
                 </p>
               )}
               {intimidationResult !== null && (
+                <div className="one-button-div">
                 <button onClick={() => handleChoice("continue")}>
                   Continue
                 </button>
+                </div>
               )}
             </div>
             <div className="right-hand-div">
             <div className="card"> 
-                  Here you have triggered a skill check.
-                  <br></br>
-                  <br>
-                  </br>
+            <h2 className="card-header"> Skill Checks</h2>
                   D&D is based around abilities - that is, how good your character is at a specific skill. Everything is decided by a dice roll, but if your character is particularly good at a skill, they will be able to add a number to the result of the roll - or take a number away if they are particularly bad!
               </div>
             </div>
@@ -355,6 +431,13 @@ export default function TrialCampaign() {
                 As the mercenary approaches closer, you reach into the depths of
                 your being and begin shouting an incantation.
               </p>
+              <div className="image-div">
+              <Image
+                src={spellImg}
+                alt="Casting a Spell"
+                width={400}>
+              </Image>
+              </div>
               <p>
                 As you speak, the tavern begins to fall into mayhem, as if there
                 was a small tornado ripping through it. Flagons of ale start
@@ -366,10 +449,13 @@ export default function TrialCampaign() {
                 quickly, as you ease off on the spell. That seemed to have
                 worked.
               </p>
+              <div className="one-button-div">
               <button onClick={() => handleChoice("continue")}>Continue</button>
+              </div>
             </div>
             <div className="right-hand-div">
               <div className="card"> 
+              <h2 className="card-header"> Spellcasting</h2>
                   Spellcasting is a feature that is available to certain classes. There is a wide range of spells that allow you to do different things: from attacking an enemy to magically altering your appearance.
               </div>
             </div>
@@ -387,6 +473,13 @@ export default function TrialCampaign() {
                 You notice that he is not talking to anyone, but is often
                 looking down at a piece of paper that is in his lap.
               </p>
+              <div className="image-div">
+              <Image
+                src={hoodedImg}
+                alt="Hooded Figure"
+                width={400}>
+              </Image>
+              </div>
               <p> What would you like to do?</p>
               <div className="button-div">
                 <button onClick={() => handleChoice("stealth")}>
@@ -399,6 +492,7 @@ export default function TrialCampaign() {
             </div>
             <div className="right-hand-div">
               <div className="card"> 
+              <h2 className="card-header"> Choices and Decisions</h2>
                   Different choices lead to different outcomes, which you can navigate as you please. If this was a real game of D&D, you would
                   have a wider range of options that you can choose from - as far as your imagination would take you.
               </div>
@@ -417,9 +511,18 @@ export default function TrialCampaign() {
                 You attempt to sneak around the hooded figure, to try and catch
                 a glance of the paper that he is constantly checking.
               </p>
+              <div className="image-div">
+              <Image
+                src={hoodedImg}
+                alt="Hooded Figure"
+                width={400}>
+              </Image>
+              </div>
+              <div className="one-button-div">
               <button onClick={() => rollDice(20, "stealth")}>
                 Roll for Stealth
               </button>
+              </div>
               {stealthResult !== null && <p> Your roll: {stealthResult}</p>}
 
               {stealthResult !== null && stealthResult >= 10 && (
@@ -447,17 +550,16 @@ export default function TrialCampaign() {
                 </p>
               )}
               {stealthResult !== null && (
+                <div className="one-button-div">
                 <button onClick={() => handleChoice("continue")}>
                   Continue
                 </button>
+                </div>
               )}
             </div>
             <div className="right-hand-div">
             <div className="card"> 
-                  Here you have triggered a skill check.
-                  <br></br>
-                  <br>
-                  </br>
+            <h2 className="card-header"> Skill Checks</h2>
                   D&D is based around abilities - that is, how good your character is at a specific skill. Everything is decided by a dice roll, but if your character is particularly good at a skill, they will be able to add a number to the result of the roll - or take a number away if they are particularly bad!
               </div>
             </div>
@@ -475,6 +577,13 @@ export default function TrialCampaign() {
                 table he is sitting on, he immediately starts speaking to you,
                 in an anxious and frantic manner.
               </p>
+              <div className="image-div">
+              <Image
+                src={hoodedImg}
+                alt="Hooded Figure"
+                width={400}>
+              </Image>
+              </div>
               <p> "Are you the one?" He blurts out. </p>
               <p> He notices the confused look on your face.</p>
               <p>
@@ -489,7 +598,16 @@ export default function TrialCampaign() {
                 realises that you are clearly not the secret admirer that he is
                 looking for.
               </p>
+              <div className="one-button-div">
               <button onClick={() => handleChoice("continue")}>Continue</button>
+              </div>
+            </div>
+            <div className="right-hand-div">
+              <div className="card">
+              <h2 className="card-header"> Unexpected Outcomes</h2>
+              Often, things may have an unexpected outcome in D&D and things aren't always as they seem.
+              </div>
+
             </div>
           </div>
         );
@@ -506,6 +624,13 @@ export default function TrialCampaign() {
                 yourself at a table, a bandit bursts throught the doors of the
                 tavern.
               </p>
+              <div className="image-div">
+              <Image
+                src={banditImg}
+                alt="a Bandit"
+                width={400}>
+              </Image>
+              </div>
               <p> "STAY CALM. I JUST NEED ALL YOUR COIN." He shouts out.</p>
               <p>
                 {" "}
@@ -519,10 +644,13 @@ export default function TrialCampaign() {
                 stand up - ready to defend the patrons and yourself against the
                 bandit.
               </p>
+              <div className="one-button-div">
               <button onClick={() => handleChoice("attack")}>Continue</button>
+              </div>
             </div>
             <div className="right-hand-div">
             <div className="card"> 
+            <h2 className="card-header"> Combat</h2>
                   Not everything is peaceful in D&D. Often, there are creatures and beings that want to attack you, and sometimes there are creatures and beings that you will want to attack.
               </div>
             </div>
@@ -539,9 +667,18 @@ export default function TrialCampaign() {
                 You raise your sword above your head, shout out a war-cry and
                 attempt to strike the bandit.
               </p>
+              <div className="image-div">
+              <Image
+                src={banditImg}
+                alt="a Bandit"
+                width={400}>
+              </Image>
+              </div>
+              <div className="one-button-div">
               <button onClick={() => rollDice(20, "attack")}>
                 Roll to Attack!
               </button>
+              </div>
               {attackResult !== null && <p> Your roll: {attackResult}</p>}
 
               {attackResult !== null && attackResult >= 10 && (
@@ -552,15 +689,19 @@ export default function TrialCampaign() {
                     his thick armour but the blunt force of it appears to have
                     hurt him still.
                   </p>
+                  <div className="one-button-div">
                   <button onClick={() => rollDice(8, "damage")}>
                     Roll Damage!
                   </button>
+                  </div>
                   {damageResult !== null && (
                     <div>
                       <p> You deal {damageResult} damage to the bandit!</p>
+                      <div className="one-button-div">
                       <button onClick={() => handleChoice("hitback")}>
                         Continue
                       </button>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -574,14 +715,17 @@ export default function TrialCampaign() {
                   He mutters at you and looks angry.
                   <br></br>
                   <br></br>
+                  <div className="one-button-div">
                   <button onClick={() => handleChoice("hitback")}>
                     Continue
                   </button>
+                  </div>
                 </p>
               )}
             </div>
             <div className="right-hand-div">
             <div className="card"> 
+            <h2 className="card-header"> Attacking</h2>
                   Attack is based on the attacker rolling a D-20, that is, a 20 sided dice. Every character has an armour class (AC) - a number that denotes how tough they are to hit.
                   If an attacker attempts to hit someone with an armour class of 15 and they roll a 14, the attack misses! <br></br><br></br>
                   Only after an attack hits do you roll another dice to determine how much damage that you do to a character, or how many health points you take away.
@@ -600,35 +744,49 @@ export default function TrialCampaign() {
                 The bandit looks angry that anyone would dare come between him
                 and his precious coin.
               </p>
+              <div className="image-div">
+              <Image
+                src={banditImg}
+                alt="a Bandit"
+                width={400}>
+              </Image>
+              </div>
               <p> He attempts to hit you back. </p>
+              <div className="one-button-div">
               <button onClick={() => rollDice(20, "bandit")}>
                 Brace yourself!
               </button>
-              {banditResult !== null && <p> Your roll: {banditResult}</p>}
+              </div>
+              {banditResult !== null && <p> The Bandit's roll: {banditResult}</p>}
 
-              {banditResult !== null && banditResult >= 10 && (
+              {banditResult !== null && banditResult <= 10 && (
                 <div>
                   <p>
                     {" "}
-                    You manage to skillfully dodge the bandit's attack. Making
+                    You manage to skillfully dodge the bandit's attack - making
                     him even more angry
                   </p>
+                  <div className="one-button-div">
                   <button onClick={() => handleChoice("end")}>Continue</button>
+                  </div>
                 </div>
               )}
-              {banditResult !== null && banditResult < 10 && (
+              {banditResult !== null && banditResult > 10 && (
                 <p>
                   The bandit strikes you on the shoulder, paining your arm.
                   <br></br>
                   <br></br>
                   <br></br>
                   <br></br>
+                  <div className="one-button-div">
                   <button onClick={() => handleChoice("end")}>Continue</button>
+                  </div>
                 </p>
               )}
             </div>
             <div className="right-hand-div">
             <div className="card"> 
+            <h2 className="card-header"> Defending</h2>
                   Much like how you had to roll to attack the bandit, the bandit has to roll a dice to determine if he hits you.
               </div>
             </div>
@@ -647,16 +805,26 @@ export default function TrialCampaign() {
                 more hassle than it is worth to rob this tavern. The patrons
                 erupt into cheers for your valiant effort.
               </p>
+              <div className="image-div">
+              <Image
+                src={cheersImg}
+                alt="Two mugs of ale cheersing together"
+                width={400}>
+              </Image>
+              </div>
               <p>
                 Or at least, that's what you think it is. Before you realise
                 that they are outraged that you have caused such a disturbance
                 and, before you know it, you are being kicked out of the
                 tavern...
               </p>
+              <div className="one-button-div">
               <button onClick={() => handleChoice(" ")}>Conclusion</button>
+              </div>
             </div>
             <div className="right-hand-div">
             <div className="card"> 
+            <h2 className="card-header"> Combat</h2>
                   You have just had your first experience of D&D combat! There is a lot to take in but it is easily absorbed with experience.
               </div>
             </div>
@@ -671,17 +839,26 @@ export default function TrialCampaign() {
               <p> Thus concludes your first D&D adventure!</p>
               <p>
                 {" "}
-                Hopefully you have learnt some of the core mechanics of the game
-                or atleast enjoyed your first adventure.
+                Well done, adventurer. That served as a taste for typical Dungeons and Dragons gameplay. Your Dungeon Master presents you with a scene and you
+                can explore and navigate that scene however you like, within the rules of the game. 
               </p>
+              <div className="image-div">
+              <Image
+                src={dmImg}
+                alt="A Dungeon Master with an adventuring party behind them"
+                width={400}>
+              </Image>
+              </div>
               <p>
                 {" "}
                 While the campaign serves as an introduction to mechanics and
                 gameplay, there are still many other things to learn about the
                 game. Follow the pathway below to continue your introduction to
-                D&D or, replay the campaign!
+                D&D or, replay the campaign to discover the alternative pathways through the adventure.
               </p>
+              <div className="one-button-div">
               <button onClick={() => handleChoice("start")}>Replay!</button>
+              </div>
             </div>
             <div className="right-hand-div">
             <div className="card"> 
@@ -692,6 +869,7 @@ export default function TrialCampaign() {
         );
     }
   };
-
+  
+  // Call to renderScene() - renders the page and the relevant content
   return <div>{renderScene()}</div>;
 }

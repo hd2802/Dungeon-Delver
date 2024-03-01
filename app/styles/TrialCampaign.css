@@ -3,37 +3,49 @@
 }
 
 .left-hand-div {
-    width: 50%;
+    width: 60%;
     float: left;
-    border: 1px solid grey;
     border-radius: 16px;
     margin: 16px;
     padding: 16px;
 }
 
 .right-hand-div {
-    width: 40%;
-    height: 300px;
+    width: 30%;
+    height: 600px;
     float: right;
     display: flex;
     flex-direction:column;
     justify-content: center;
     align-items: center;
+    margin: 30px;
 }
 
 .card {
-    background-color: grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 50%;
+    background-color: #293541;
     color: white;
-    border-radius: 16px;
-    padding: 16px;
-    margin: 16px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     text-align: center;
-    align-self: center;
+    padding: 20px;
+    flex-direction: column;
+}
+
+.card-content{
+    background: #293541;
+    color: white;
+}
+
+.card-header {
+    background: #293541;
+    color: white;
 }
 
 button {
-    background-color: rgba(51, 51, 51, 0.05);
+    background-color: #668099;
     border-radius: 8px;
     border-width: 0;
     display: inline-block;
@@ -45,6 +57,7 @@ button {
     text-align: center;
     cursor: pointer;
     margin: 8px;
+    color: white;
 }
 
 .button-div {
@@ -55,3 +68,12 @@ button {
     padding: 8px;
 }
   
+.image-div {
+    text-align: center;
+}
+
+.one-button-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
