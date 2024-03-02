@@ -60,7 +60,7 @@ export default function TrialCampaign() {
       case "introduction":
         return (
           <div className="outer-div">
-            <div className="left-hand-div">
+              <div className="center-div">
               <h1> Your First Adventure!</h1>
               <p>
                 {" "}
@@ -99,21 +99,13 @@ export default function TrialCampaign() {
               </button>
               </div>
             </div>
-            <div className="right-hand-div">
-              <div className="card">
-                <h2 className="card-header"> Tooltips</h2>
-                <p className="card-content">
-                  These tooltips will provide information about the mechanics throughout your adventure!
-                  </p>
-              </div>
-            </div>
           </div>
         );
       // The starting case
       case "start":
         return (
           <div className="outer-div">
-            <div className="left-hand-div">
+            <div className="center-div">
               <h1> The Adventure Begins ... </h1>
               <p>
                 You find yourself in a tavern - the air thick with the scent of
@@ -146,7 +138,6 @@ export default function TrialCampaign() {
                     occasionally reaching for his flagon of ale.
                   </li>
                 </ol>
-                What would you like to do?
                 <div className="button-div">
                   <button onClick={() => handleChoice("barkeep")}>
                     Talk to the Barkeep
@@ -159,22 +150,14 @@ export default function TrialCampaign() {
                   </button>
                 </div>
             </div>
-            <div className="right-hand-div">
-              <div className="card"> 
-              <h2 className="card-header"> Exploration</h2>
-                  The Dungeon Master will often present you an environment that you can explore freely. 
-
-                  The DM will often highlight areas of interest but you can investigate and interact with anything in a scene.
-              </div>
-            </div>
           </div>
         );
 
       // path 1 - talking to the barkeep
       case "barkeep":
         return (
-          <div>
-            <div className="left-hand-div">
+          <div className="outer-div">
+            <div className="center-div">
               <h1> Talking to the Barkeep </h1>
               <p>
                 You approach the barkeep - a beareded, towering giant of a human
@@ -194,19 +177,12 @@ export default function TrialCampaign() {
               <p>"Coin?" He booms out.</p>
               <p>What would you like to do?</p>
               <div className="button-div">
-                <button onClick={() => handleChoice("pay")}>
-                  Pay the Coin (-1 Gold)
-                </button>
+                  <button onClick={() => handleChoice("pay")}>
+                    Pay the Coin (-1 Gold)
+                  </button>
                 <button onClick={() => handleChoice("persuade")}>
                   Persuade Him That You Don't Need to Pay
                 </button>
-              </div>
-            </div>
-            <div className="right-hand-div">
-              <div className="card"> 
-              <h2 className="card-header"> Choices and Decisions</h2>
-                  Different choices lead to different outcomes, which you can navigate as you please. If this was a real game of D&D, you would
-                  have a wider range of options that you can choose from - as far as your imagination would take you.
               </div>
             </div>
           </div>
@@ -215,8 +191,8 @@ export default function TrialCampaign() {
       // path 1 - talking to the barkeep
       case "pay":
         return (
-          <div>
-            <div className="left-hand-div">
+          <div className="outer-div">
+            <div className="center-div">
               <h1> Paying the Gold </h1>
               <p>
                 {" "}
@@ -234,20 +210,14 @@ export default function TrialCampaign() {
               <button onClick={() => handleChoice("continue")}>Continue</button>
               </div>
             </div>
-            <div className="right-hand-div">
-              <div className="card"> 
-              <h2 className="card-header"> Currency</h2>
-                  The D&D world has currency. Currency allows you to buy a wide range of items, from ale to armour.
-              </div>
-            </div>
           </div>
         );
 
       // path 1 - talking to the barkeep
       case "persuade":
         return (
-          <div>
-            <div className="left-hand-div">
+          <div className="outer-div">
+            <div className="center-div">
               <h1> Persuasion Check </h1>
               <p>
                 You smoothly attempt to convince the barkeep that you do not
@@ -261,9 +231,11 @@ export default function TrialCampaign() {
                 width={400}>
               </Image>
               </div>
+              <div className="one-button-div">
               <button onClick={() => rollDice(20, "persuasion")}>
                 Roll for Persuasion
               </button>
+              </div>
               {persuasionResult !== null && (
                 <p> Your roll: {persuasionResult}</p>
               )}
@@ -297,20 +269,14 @@ export default function TrialCampaign() {
                 </div>
               )}
             </div>
-            <div className="right-hand-div">
-              <div className="card"> 
-              <h2 className="card-header"> Skill Checks</h2>
-                  D&D is based around abilities - that is, how good your character is at a specific skill. Everything is decided by a dice roll, but if your character is particularly good at a skill, they will be able to add a number to the result of the roll - or take a number away if they are particularly bad!
-              </div>
-            </div>
           </div>
         );
 
       // path 2 - mercenaries
       case "mercenaries":
         return (
-          <div>
-            <div className="left-hand-div">
+          <div className="outer-div">
+            <div className="center-div">
               <h1> Mercenaries </h1>
               <p>
                 You awkwardly shuffle over to near where the mercenaries are
@@ -344,21 +310,14 @@ export default function TrialCampaign() {
                 </button>
               </div>
             </div>
-            <div className="right-hand-div">
-              <div className="card"> 
-              <h2 className="card-header"> Choices and Decisions</h2>
-                  Different choices lead to different outcomes, which you can navigate as you please. If this was a real game of D&D, you would
-                  have a wider range of options that you can choose from - as far as your imagination would take you.
-              </div>
-            </div>
           </div>
         );
 
       // path 2 - mercenaries
       case "intimidate":
         return (
-          <div>
-            <div className="left-hand-div">
+          <div className="outer-div">
+            <div className="center-div">
               <h1> Intimidation Check </h1>
               <p>
                 As the mercenary approaches you, you feel your heart beat
@@ -412,20 +371,14 @@ export default function TrialCampaign() {
                 </div>
               )}
             </div>
-            <div className="right-hand-div">
-            <div className="card"> 
-            <h2 className="card-header"> Skill Checks</h2>
-                  D&D is based around abilities - that is, how good your character is at a specific skill. Everything is decided by a dice roll, but if your character is particularly good at a skill, they will be able to add a number to the result of the roll - or take a number away if they are particularly bad!
-              </div>
-            </div>
             </div>
         );
 
       // path 2 - mercenaries
       case "spell":
         return (
-          <div>
-            <div className="left-hand-div">
+          <div className="outer-div">
+            <div className="center-div">
               <h1> Casting a Spell </h1>
               <p>
                 As the mercenary approaches closer, you reach into the depths of
@@ -453,20 +406,14 @@ export default function TrialCampaign() {
               <button onClick={() => handleChoice("continue")}>Continue</button>
               </div>
             </div>
-            <div className="right-hand-div">
-              <div className="card"> 
-              <h2 className="card-header"> Spellcasting</h2>
-                  Spellcasting is a feature that is available to certain classes. There is a wide range of spells that allow you to do different things: from attacking an enemy to magically altering your appearance.
-              </div>
-            </div>
           </div>
         );
 
       // path 3 - hooded figure
       case "hooded":
         return (
-          <div>
-            <div className="left-hand-div">
+          <div className="outer-div">
+            <div className="center-div">
               <h1> Hooded Figure </h1>
               <p>
                 You begin to study the hooded figure in the corner of the room.
@@ -490,22 +437,14 @@ export default function TrialCampaign() {
                 </button>
               </div>
             </div>
-            <div className="right-hand-div">
-              <div className="card"> 
-              <h2 className="card-header"> Choices and Decisions</h2>
-                  Different choices lead to different outcomes, which you can navigate as you please. If this was a real game of D&D, you would
-                  have a wider range of options that you can choose from - as far as your imagination would take you.
-              </div>
-            </div>
-            
           </div>
         );
 
       // path 3 - hooded figure
       case "stealth":
         return (
-          <div>
-            <div className="left-hand-div">
+          <div className="outer-div">
+            <div className="center-div">
               <h1> Stealth Check </h1>
               <p>
                 You attempt to sneak around the hooded figure, to try and catch
@@ -557,20 +496,14 @@ export default function TrialCampaign() {
                 </div>
               )}
             </div>
-            <div className="right-hand-div">
-            <div className="card"> 
-            <h2 className="card-header"> Skill Checks</h2>
-                  D&D is based around abilities - that is, how good your character is at a specific skill. Everything is decided by a dice roll, but if your character is particularly good at a skill, they will be able to add a number to the result of the roll - or take a number away if they are particularly bad!
-              </div>
-            </div>
           </div>
         );
 
       // path 3 - hooded figure
       case "speak":
         return (
-          <div>
-            <div className="left-hand-div">
+          <div className="outer-div">
+            <div className="center-div">
               <h1> Speaking to the Hooded Figure </h1>
               <p>
                 You decide to speak to the hooded figure. As you approach the
@@ -602,21 +535,14 @@ export default function TrialCampaign() {
               <button onClick={() => handleChoice("continue")}>Continue</button>
               </div>
             </div>
-            <div className="right-hand-div">
-              <div className="card">
-              <h2 className="card-header"> Unexpected Outcomes</h2>
-              Often, things may have an unexpected outcome in D&D and things aren't always as they seem.
-              </div>
-
-            </div>
           </div>
         );
 
       // default path - battle
       case "continue":
         return (
-          <div>
-            <div className="left-hand-div">
+          <div className="outer-div">
+            <div className="center-div">
               <h1> Trouble Ahead </h1>
               <p>
                 {" "}
@@ -648,20 +574,14 @@ export default function TrialCampaign() {
               <button onClick={() => handleChoice("attack")}>Continue</button>
               </div>
             </div>
-            <div className="right-hand-div">
-            <div className="card"> 
-            <h2 className="card-header"> Combat</h2>
-                  Not everything is peaceful in D&D. Often, there are creatures and beings that want to attack you, and sometimes there are creatures and beings that you will want to attack.
-              </div>
-            </div>
           </div>
         );
 
       // default path - battle
       case "attack":
         return (
-          <div>
-            <div className="left-hand-div">
+          <div className="outer-div">
+            <div className="center-div">
               <h1> Attacking! </h1>
               <p>
                 You raise your sword above your head, shout out a war-cry and
@@ -723,21 +643,13 @@ export default function TrialCampaign() {
                 </p>
               )}
             </div>
-            <div className="right-hand-div">
-            <div className="card"> 
-            <h2 className="card-header"> Attacking</h2>
-                  Attack is based on the attacker rolling a D-20, that is, a 20 sided dice. Every character has an armour class (AC) - a number that denotes how tough they are to hit.
-                  If an attacker attempts to hit someone with an armour class of 15 and they roll a 14, the attack misses! <br></br><br></br>
-                  Only after an attack hits do you roll another dice to determine how much damage that you do to a character, or how many health points you take away.
-              </div>
-            </div>
           </div>
         );
 
       case "hitback":
         return (
-          <div>
-            <div className="left-hand-div">
+          <div className="outer-div">
+            <div className="center-div">
               <h1> The Bandit Strikes Back </h1>
               <p>
                 {" "}
@@ -784,17 +696,11 @@ export default function TrialCampaign() {
                 </p>
               )}
             </div>
-            <div className="right-hand-div">
-            <div className="card"> 
-            <h2 className="card-header"> Defending</h2>
-                  Much like how you had to roll to attack the bandit, the bandit has to roll a dice to determine if he hits you.
-              </div>
-            </div>
           </div>
         );
       case "end":
         return (
-          <div>
+          <div className="outer-div">
             <div className="left-hand-div">
               <h1> Bandit Defeated </h1>
               <p>
@@ -822,19 +728,13 @@ export default function TrialCampaign() {
               <button onClick={() => handleChoice(" ")}>Conclusion</button>
               </div>
             </div>
-            <div className="right-hand-div">
-            <div className="card"> 
-            <h2 className="card-header"> Combat</h2>
-                  You have just had your first experience of D&D combat! There is a lot to take in but it is easily absorbed with experience.
-              </div>
-            </div>
           </div>
         );
 
       default:
         return (
           <div className="outer-div">
-            <div className="left-hand-div">
+            <div className="center-div">
               <h1> Your First Adventure! </h1>
               <p> Thus concludes your first D&D adventure!</p>
               <p>
@@ -858,11 +758,6 @@ export default function TrialCampaign() {
               </p>
               <div className="one-button-div">
               <button onClick={() => handleChoice("start")}>Replay!</button>
-              </div>
-            </div>
-            <div className="right-hand-div">
-            <div className="card"> 
-                  Links:
               </div>
             </div>
           </div>
