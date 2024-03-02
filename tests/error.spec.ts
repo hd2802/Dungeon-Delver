@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('has text', async ({ page }) => {
+test('404 page loads correctly', async ({ page }) => {
   await page.goto('https://dungeon-delver-inky.vercel.app/sgfijsfgij');
 
   await page.locator('div').filter({ hasText: "Wrong Turn, Adventurer!"}).first().isVisible();
