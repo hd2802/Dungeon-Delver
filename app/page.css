@@ -1,5 +1,29 @@
-.image-container {
+.parent-container {
     display: flex;
-    justify-content: center;
+    align-items: flex-start; /* Ensure children align at the top */
+    justify-content: flex-start; /* Align children to the left */
+}
+
+.image-container, .logo-image-container {
+    display: flex;
+    justify-content: center; /* Center content horizontally within each container */
+    align-items: center; /* Center content vertically within each container */
     margin: 16px;
+}
+
+.button-container button {
+    font-size: 40px;
+    padding: 20px 40px;
+    margin: 40px auto;
+    display: flex;
+    position: relative; /* Center the button */
+}
+
+.logo-image-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start; /* Align items to the left within the container */
+    align-items: flex-start; /* Align items to the top within the container */
+    margin-top: 15px;
+    margin-left: 40px;
 }
