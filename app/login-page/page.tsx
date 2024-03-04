@@ -1,80 +1,94 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { createClient } from "@supabase/supabase-js"
 import "../styles/LoginPage.css"
 
-// Index 0 contains login text, index 1 contains account creation text.
-const loginButtonText = ["Login", "Create account"]
-const loginSwitchButtonText = ["Go to create account", "Go to login"];
-const pageHeaderText = ["Login to account", "Create account"];
+const LoginPage = () => {
+    // Index 0 contains login text, index 1 contains account creation text.
+    const loginButtonText = ["Login", "Create account"]
+    const loginSwitchButtonText = ["Go to create account", "Go to login"];
+    const pageHeaderText = ["Login to account", "Create account"];
 
-function HandleLoginButtonPress() {
+    let confirmPassword : HTMLDivElement;
+    let loginButton : HTMLDivElement;
+    let loginSwitchButton : HTMLElement;
+    let pageHeader : HTMLElement;
+    let isCreateAccount = false;
+    
+    useEffect(() => {
+        GetHTMLElements();
+    }, [])
 
-}
-
-// This is not very efficient, but it works.
-function HandleLoginSwitchButtonPress() {
-    const confirmPassword = document.getElementById("confirmPassword") as HTMLDivElement;
-    const loginButton = document.getElementById("loginButton") as HTMLDivElement;
-    const loginSwitchButton = document.getElementById("loginSwitchButton") as HTMLDivElement;
-    const pageHeader = document.getElementById("pageHeader") as HTMLDivElement;
-    const currVisibility = window.getComputedStyle(confirmPassword).visibility;
-
-    let index : number = 0;
-
-    if (currVisibility === "visible")
-        confirmPassword.style.visibility = "hidden"; 
-    else
-    {
-        index = 1;
-        confirmPassword.style.visibility = "visible"; 
+    const GetHTMLElements = () => {
+        confirmPassword = document.getElementById("confirmPassword") as HTMLDivElement;
+        loginButton = document.getElementById("loginButton") as HTMLDivElement;
+        loginSwitchButton = document.getElementById("loginSwitchButton") as HTMLDivElement;
+        pageHeader = document.getElementById("pageHeader") as HTMLDivElement;
     }
+
+    const GetLoginForm = () => {
+        return (
+            <form action="">
+                <label htmlFor="emailInput"> Email: </label>
+                <input type="email" id="emailInput"/>
+                <label htmlFor="passwordInput"> Password: </label>
+                <input type="password" id="passwordInput"/>
         
-    loginButton.textContent = loginButtonText[index];
-    loginSwitchButton.textContent = loginSwitchButtonText[index];
-    pageHeader.textContent = pageHeaderText[index];
-}
-
-function LoginForm() {
-    return (
-        <>
-            <label>
-                <div>
-                    Email: <br/> <input name="emailInput" />
-                </div>
-            </label>
-
-            <label>
-                <div>
-                    Password: <br/> <input name="passwordInput" />
-                </div>
-            </label>
-
-            <label>
                 <div id="confirmPassword" className="invisible">
-                    Confirm password: <br/> <input name="confirmPasswordInput" />
+                    <label htmlFor="confirmPasswordInput"> Confirm password: </label>
+                <input type="password" id="confirmPasswordInput"/>
                 </div>
-            </label>
+    
+                <a href="#" id="loginSwitchButton" onClick={HandleLoginSwitchButtonPress}>
+                    Go to create account
+                </a>
+                <button id="loginButton" onClick={HandleLoginButtonPress}>
+                    Login
+                </button>
+            </form>
+        );
+    }
 
-            <button id="loginButton" onClick={HandleLoginButtonPress}>
-                Login
-            </button>
+    const HandleLoginButtonPress = () => {
+        if (isCreateAccount) {
+            const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+            const { data, error } = supabase.from("User_Emails_Passwords").select("*"); 
 
-            <a href="#" id="loginSwitchButton" onClick={HandleLoginSwitchButtonPress}>
-                Go to create account
-            </a>
-        </>
-    );
-}
+            alert(data);
+        }
+    }
+    
+    // This is not very efficient, but it works.
+    const HandleLoginSwitchButtonPress = () => {
+        
+        const currVisibility = window.getComputedStyle(confirmPassword).visibility;
+        let index : number = 0;
+        isCreateAccount = false;
+    
+        if (currVisibility === "visible")
+            confirmPassword.style.visibility = "hidden"; 
+        else
+        {
+            index = 1;
+            confirmPassword.style.visibility = "visible";
+            isCreateAccount = true; 
+        }
+            
+        loginButton.textContent = loginButtonText[index];
+        loginSwitchButton.textContent = loginSwitchButtonText[index];
+        pageHeader.textContent = pageHeaderText[index];
+    }
 
-export default function LoginPage() {
     const renderPage = () => {
         return (
             <div>
                 <h1 id="pageHeader"> Login </h1>
-                {LoginForm()}
+                {GetLoginForm()}
             </div>
         );
     };
 
-    return <div>{renderPage()}</div>
+    return renderPage();
 }
+
+export default LoginPage;

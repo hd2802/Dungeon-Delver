@@ -12,15 +12,15 @@
 label {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: flex-start;
     text-align: left;
     width: 400px;
-    line-height: 26px;
-    margin-bottom: 10px;
+    line-height: 40px;
+    margin-bottom: 0px;
 }
   
 input {
     height: 20px;
     flex: 0 0 200px;
-    margin-left: 10px;
+    margin-bottom: 10px;
 }
