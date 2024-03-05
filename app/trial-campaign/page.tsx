@@ -1,5 +1,5 @@
 "use client";
-import "../styles/TrialCampaign.css";
+import "../styles/TrialCampaign.css"
 import Image from "next/image";
 import React, { useState } from "react";
 import barkeepImg from "../../public/images/barkeep.jpg";
@@ -14,7 +14,7 @@ import tavernImg from "../../public/images/tavern.jpg";
 import dmImg from "../../public/images/dm.jpg";
 
 export default function TrialCampaign() {
-  // contain the variables for use later 
+
   const [currentScene, setCurrentScene] = useState("introduction");
   const [persuasionResult, setPersuasionResult] = useState<number | null>(null);
   const [intimidationResult, setIntimidationResult] = useState<number | null>(null);
@@ -101,6 +101,7 @@ export default function TrialCampaign() {
             </div>
           </div>
         );
+        
       // The starting case
       case "start":
         return (
@@ -701,7 +702,7 @@ export default function TrialCampaign() {
       case "end":
         return (
           <div className="outer-div">
-            <div className="left-hand-div">
+            <div className="center-div">
               <h1> Bandit Defeated </h1>
               <p>
                 {" "}

@@ -27,3 +27,10 @@
     margin-top: 15px;
     margin-left: 40px;
 }
+
+.dash-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

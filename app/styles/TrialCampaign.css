@@ -32,22 +32,6 @@
     margin: 16px;
 }
 
-button {
-    background-color: #668099;
-    border-radius: 8px;
-    border-width: 0;
-    display: inline-block;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 20px;
-    list-style: none;
-    padding: 10px 12px;
-    text-align: center;
-    cursor: pointer;
-    margin: 8px;
-    color: white;
-}
-
 .button-div {
     display: flex;
     align-items: center;
