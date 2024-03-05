@@ -1,7 +1,17 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { createClient } from "@supabase/supabase-js"
+import { supabase, minPasswordChars } from "../supabase"
+import * as EmailValidator from "email-validator"
 import "../styles/LoginPage.css"
+import { PiPasswordBold } from "react-icons/pi";
+
+interface IDBUserData {
+    id: number,
+    email: string,
+    verification_code: number,
+    password_SHA512: string,
+    is_verified: boolean
+}
 
 const LoginPage = () => {
     // Index 0 contains login text, index 1 contains account creation text.
@@ -9,10 +19,21 @@ const LoginPage = () => {
     const loginSwitchButtonText = ["Go to create account", "Go to login"];
     const pageHeaderText = ["Login to account", "Create account"];
 
-    let confirmPassword : HTMLDivElement;
-    let loginButton : HTMLDivElement;
+    let confirmPassword : HTMLInputElement;
+    let loginButton : HTMLButtonElement;
     let loginSwitchButton : HTMLElement;
     let pageHeader : HTMLElement;
+    
+    let emailLabel : HTMLLabelElement;
+    let emailInput : HTMLInputElement;
+
+    let passwordLabel: HTMLLabelElement;
+    let passwordInput: HTMLInputElement;
+
+    let confirmPasswordLabel: HTMLLabelElement;
+    let confirmPasswordInput: HTMLInputElement; 
+
+    let passwordInfoLabel: HTMLLabelElement;
     let isCreateAccount = false;
     
     useEffect(() => {
@@ -20,41 +41,77 @@ const LoginPage = () => {
     }, [])
 
     const GetHTMLElements = () => {
-        confirmPassword = document.getElementById("confirmPassword") as HTMLDivElement;
-        loginButton = document.getElementById("loginButton") as HTMLDivElement;
-        loginSwitchButton = document.getElementById("loginSwitchButton") as HTMLDivElement;
-        pageHeader = document.getElementById("pageHeader") as HTMLDivElement;
+        confirmPassword = document.getElementById("confirmPassword") as HTMLInputElement;
+        loginButton = document.getElementById("loginButton") as HTMLButtonElement;
+        loginSwitchButton = document.getElementById("loginSwitchButton") as HTMLElement;
+        pageHeader = document.getElementById("pageHeader") as HTMLElement;
+
+        emailLabel = document.getElementById("emailLabel") as HTMLLabelElement;
+        emailInput = document.getElementById("emailInput") as HTMLInputElement;
+
+        passwordLabel = document.getElementById("passwordLabel") as HTMLLabelElement;
+        passwordInput = document.getElementById("passwordInput") as HTMLInputElement;
+
+        confirmPasswordLabel = document.getElementById("confirmPasswordLabel") as HTMLLabelElement;
+        confirmPasswordInput = document.getElementById("confirmPasswordInput") as HTMLInputElement;
+
+        passwordInfoLabel = document.getElementById("passwordInfoLabel") as HTMLLabelElement;
     }
 
     const GetLoginForm = () => {
         return (
             <form action="">
-                <label htmlFor="emailInput"> Email: </label>
+                <label htmlFor="emailInput" id="emailLabel"> Email: </label>
                 <input type="email" id="emailInput"/>
-                <label htmlFor="passwordInput"> Password: </label>
+                <label htmlFor="passwordInput" id="passwordLabel"> Password: </label>
                 <input type="password" id="passwordInput"/>
         
                 <div id="confirmPassword" className="invisible">
-                    <label htmlFor="confirmPasswordInput"> Confirm password: </label>
-                <input type="password" id="confirmPasswordInput"/>
+                    <label htmlFor="confirmPasswordInput" id="confirmPasswordLabel"> Confirm password: </label>
+                    <input type="password" id="confirmPasswordInput"/>
                 </div>
     
                 <a href="#" id="loginSwitchButton" onClick={HandleLoginSwitchButtonPress}>
                     Go to create account
                 </a>
-                <button id="loginButton" onClick={HandleLoginButtonPress}>
+                <button id="loginButton" type="button" onClick={HandleLoginButtonPress}>
                     Login
                 </button>
+
+                <label id="passwordInfoLabel" className = "invisible"> <br/> Password must be at least 10 characters long. </label>
+
             </form>
         );
     }
 
-    const HandleLoginButtonPress = () => {
+    const HandleLoginButtonPress = async () => {
         if (isCreateAccount) {
-            const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
-            const { data, error } = supabase.from("User_Emails_Passwords").select("*"); 
+            
+            const isValidEmail = EmailValidator.validate(emailInput.value);
+            if (!isValidEmail)
+                emailLabel.textContent = "Email: Invalid email!";
+            else
+                emailLabel.textContent = "Email:";
 
-            alert(data);
+            if (passwordInput.value.length < minPasswordChars)
+                passwordLabel.textContent = "Password: Invalid password!";
+            else
+                passwordLabel.textContent = "Password: "
+
+            if (confirmPasswordInput.value != passwordInput.value)
+                confirmPasswordLabel.textContent = "Confirm password: Passwords don't match!";
+            else
+                confirmPasswordLabel.textContent = "Confirm password:";
+            
+            /*const { data: result, error } = await supabase.from("User_Emails_Passwords").select("*") 
+
+            const JSONString : string = JSON.stringify(result);
+            const userDataArr : IDBUserData[] = JSON.parse(JSONString);
+            
+            for (let i = 0; i < userDataArr.length; i++)
+            {
+                console.log(userDataArr[i].email);
+            }*/
         }
     }
     
@@ -66,11 +123,15 @@ const LoginPage = () => {
         isCreateAccount = false;
     
         if (currVisibility === "visible")
+        {
             confirmPassword.style.visibility = "hidden"; 
+            passwordInfoLabel.style.visibility = "hidden";
+        }
         else
         {
             index = 1;
             confirmPassword.style.visibility = "visible";
+            passwordInfoLabel.style.visibility = "visible";
             isCreateAccount = true; 
         }
             
