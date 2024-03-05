@@ -18,14 +18,14 @@
     justify-content: center;
 }
 
-.footer-info {
+.footer-info  {
     background-color: #34495e;
     width: 30%;
     margin: 12px;
     color: white;
 }
 
-a {
+.footer-link {
     background-color: #34495e;
     color: white;
 }
