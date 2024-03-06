@@ -4,7 +4,6 @@ import { supabase, minPasswordChars, maxPasswordChars, salt } from "../supabase"
 import * as EmailValidator from "email-validator";
 import { sha512 } from "sha512-crypt-ts";
 import "../styles/LoginPage.css";
-import { data } from "autoprefixer";
 
 interface IDBUserData {
     id: number,
@@ -19,6 +18,10 @@ const LoginPage = () => {
     const loginButtonText = ["Login", "Create account", "Verify email"]
     const loginSwitchButtonText = ["Go to create account", "Go to login", "Go to login"];
     const pageHeaderText = ["Login to account", "Create account", "Verify email"];
+
+    const emailLabelBaseText = "Email: ";
+    const passwordLabelBaseText = "Password: ";
+    const confirmPasswordLabelText = ["", "Confirm password: ", "Verification code: "];
 
     let confirmPassword : HTMLInputElement;
     let loginButton : HTMLButtonElement;
@@ -65,22 +68,22 @@ const LoginPage = () => {
         return (
             <form action="">
                 <div id="loginInputs">
-                    <label htmlFor="emailInput" id="emailLabel"> Email: </label>
+                    <label htmlFor="emailInput" id="emailLabel"> {emailLabelBaseText} </label>
                     <input type="email" id="emailInput"/>
-                    <label htmlFor="passwordInput" id="passwordLabel"> Password: </label>
+                    <label htmlFor="passwordInput" id="passwordLabel"> {passwordLabelBaseText} </label>
                     <input type="password" id="passwordInput"/>
                 </div>
 
                 <div id="confirmPassword" className="invisible">
-                    <label htmlFor="confirmPasswordInput" id="confirmPasswordLabel"> Confirm password: </label>
+                    <label htmlFor="confirmPasswordInput" id="confirmPasswordLabel"> {confirmPasswordLabelText[1]} </label>
                     <input type="password" id="confirmPasswordInput"/>
                 </div>
     
                 <a href="#" id="loginSwitchButton" onClick={HandleLoginSwitchButtonPress}>
-                    Go to create account
+                    {loginSwitchButtonText[0]}
                 </a>
                 <button id="loginButton" type="button" onClick={HandleLoginButtonPress}>
-                    Login
+                    {loginButtonText[0]}
                 </button>
 
                 <label id="passwordInfoLabel" className = "invisible"> <br/> Password must be at between 10 and 64 characters long. </label>
@@ -95,6 +98,12 @@ const LoginPage = () => {
         pageHeader.textContent = pageHeaderText[menuIndex];
     }
 
+    const ResetAllLabels = (in_menuIndex : number) => {
+        confirmPasswordLabel.textContent = confirmPasswordLabelText[in_menuIndex];
+        emailLabel.textContent = emailLabelBaseText;
+        passwordLabel.textContent = passwordLabelBaseText;
+    }
+
     const ResetAllInputs = () => {
         emailInput.value = "";
         passwordInput.value = "";
@@ -102,32 +111,35 @@ const LoginPage = () => {
     }
 
     const HandleLoginButtonPress = async () => {
-        if (menuIndex == 1) {
-            
-            const isValidEmail = EmailValidator.validate(emailInput.value);
-            let validityCheckCounter = 0;
-
+        const isValidEmail = EmailValidator.validate(emailInput.value);
+        let validityCheckCounter = 0;
+        
+        if (menuIndex == 0 || menuIndex == 1)
+        {
             if (!isValidEmail)
-                emailLabel.textContent = "Email: Invalid email!";
+            emailLabel.textContent = emailLabelBaseText + "Invalid email!";
             else
             {
-                emailLabel.textContent = "Email:";
+                emailLabel.textContent = emailLabelBaseText;
                 validityCheckCounter++;
             }
 
             if (passwordInput.value.length < minPasswordChars || passwordInput.value.length > maxPasswordChars)
-                passwordLabel.textContent = "Password: Invalid password!";
+                passwordLabel.textContent = passwordLabelBaseText + "Invalid password!";
             else
             {
-                passwordLabel.textContent = "Password: ";
+                passwordLabel.textContent = passwordLabelBaseText;
                 validityCheckCounter++;
-            }
+            }    
+        }
 
-            if (confirmPasswordInput.value != passwordInput.value)
-                confirmPasswordLabel.textContent = "Confirm password: Passwords don't match!";
+        if (menuIndex == 1) {
+            
+            if (confirmPasswordInput.value !== passwordInput.value)
+                confirmPasswordLabel.textContent = confirmPasswordLabelText[1] + "Passwords don't match!";
             else
             {
-                confirmPasswordLabel.textContent = "Confirm password:";
+                confirmPasswordLabel.textContent = confirmPasswordLabelText[1];
                 validityCheckCounter++;
             }
             
@@ -139,10 +151,10 @@ const LoginPage = () => {
                 if (JSONData.length <= 2)
                 {
                     validityCheckCounter++;
-                    emailLabel.textContent = "Email: ";
+                    emailLabel.textContent = emailLabelBaseText;
                 }
                 else
-                    emailLabel.textContent = "Email: Account already registered!";
+                    emailLabel.textContent = emailLabelBaseText + "Account already registered!";
             }
 
             if (validityCheckCounter >= 4)
@@ -152,7 +164,7 @@ const LoginPage = () => {
                 loginInputs.style.visibility = "hidden";
                 confirmPasswordLabel.textContent = "Verification code:";
 
-                const verificationCode = 1000 + Math.floor(Math.random() * (2 ** 16));
+                const verificationCode = 1000 + Math.floor(Math.random() * 9000);
                 const { data: result, error } = await supabase.from("User_Emails_Passwords").upsert([
                     {
                         email: emailInput.value,
@@ -175,6 +187,15 @@ const LoginPage = () => {
                 console.log(userDataArr[i].email);
             }*/
         }
+        else if (menuIndex == 2) {
+            const { data: result, error } = await supabase.from("User_Emails_Passwords").select().eq("verification_code", Number(confirmPasswordInput.value));
+            const JSONData = JSON.stringify(result);
+
+            if (JSONData === null || JSONData.length <= 2)
+                confirmPasswordLabel.textContent = confirmPasswordLabelText[menuIndex] + "Incorrect code!";
+            else
+                confirmPasswordLabel.textContent = confirmPasswordLabelText[menuIndex];
+        }
     }
     
     const HandleLoginSwitchButtonPress = () => {
@@ -184,33 +205,33 @@ const LoginPage = () => {
             case 0: {
                 confirmPassword.style.visibility = "visible"; 
                 passwordInfoLabel.style.visibility = "visible";
+                
                 menuIndex = 1;
-                ResetAllInputs();
             } break;
             case 1: {
                 confirmPassword.style.visibility = "hidden";
                 passwordInfoLabel.style.visibility = "hidden";
-                emailLabel.textContent = "Email: ";
+                
                 menuIndex = 0;
-                ResetAllInputs();
+                
             } break;
             case 2: {
                 loginInputs.style.visibility = "visible";
-                confirmPasswordLabel.textContent = "Confirm password:";
                 confirmPassword.style.visibility = "hidden";
-                emailLabel.textContent = "Email: ";
+                
                 menuIndex = 0;
-                ResetAllInputs();
             } break;
         }
-            
+        
+        ResetAllInputs();
+        ResetAllLabels(menuIndex);
         UpdateCrossMenuItems();
     }
 
     const renderPage = () => {
         return (
             <div>
-                <h1 id="pageHeader"> Login </h1>
+                <h1 id="pageHeader"> {pageHeaderText[0]} </h1>
                 {GetLoginForm()}
             </div>
         );
