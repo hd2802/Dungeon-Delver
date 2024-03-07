@@ -4,9 +4,12 @@ import { supabase, minPasswordChars, maxPasswordChars, salt } from "../supabase"
 import * as EmailValidator from "email-validator";
 import { sha512 } from "sha512-crypt-ts";
 import "../styles/LoginPage.css";
+import { UUID } from "crypto";
+import { uuid } from "uuidv4";
 
 interface IDBUserData {
     id: number,
+    session_id: UUID
     email: string,
     verification_code: number,
     password_SHA512: string,
@@ -22,6 +25,8 @@ const LoginPage = () => {
     const emailLabelBaseText = "Email: ";
     const passwordLabelBaseText = "Password: ";
     const confirmPasswordLabelText = ["", "Confirm password: ", "Verification code: "];
+    const passwordInfoLabelText = ["Account with entered email doesn't exist!", "Incorrect password!", "Account not yet verified!", 
+    "Database error, please try again!", "Login successful!", "Account creation successful!", "Password must be at between 10 and 64 characters long."];
 
     let confirmPassword : HTMLInputElement;
     let loginButton : HTMLButtonElement;
@@ -40,6 +45,8 @@ const LoginPage = () => {
     let passwordInfoLabel: HTMLLabelElement;
     let loginInputs: HTMLDivElement;
     let menuIndex = 0;
+
+    let currEmail = "";
     
     useEffect(() => {
         GetHTMLElements();
@@ -86,8 +93,7 @@ const LoginPage = () => {
                     {loginButtonText[0]}
                 </button>
 
-                <label id="passwordInfoLabel" className = "invisible"> <br/> Password must be at between 10 and 64 characters long. </label>
-
+                <label id="passwordInfoLabel" className = "invisible"> <br/> {passwordInfoLabelText[6]} </label>
             </form>
         );
     }
@@ -102,6 +108,9 @@ const LoginPage = () => {
         confirmPasswordLabel.textContent = confirmPasswordLabelText[in_menuIndex];
         emailLabel.textContent = emailLabelBaseText;
         passwordLabel.textContent = passwordLabelBaseText;
+
+        if (in_menuIndex != 0)
+            passwordInfoLabel.textContent = passwordInfoLabelText[6];
     }
 
     const ResetAllInputs = () => {
@@ -114,10 +123,13 @@ const LoginPage = () => {
         const isValidEmail = EmailValidator.validate(emailInput.value);
         let validityCheckCounter = 0;
         
+        if (emailInput.value.length > 0)
+            currEmail = emailInput.value;
+
         if (menuIndex == 0 || menuIndex == 1)
         {
             if (!isValidEmail)
-            emailLabel.textContent = emailLabelBaseText + "Invalid email!";
+                emailLabel.textContent = emailLabelBaseText + "Invalid email!";
             else
             {
                 emailLabel.textContent = emailLabelBaseText;
@@ -133,7 +145,70 @@ const LoginPage = () => {
             }    
         }
 
-        if (menuIndex == 1) {
+        if (menuIndex == 0 && validityCheckCounter >= 2) { // Login
+            const { data: emailResult, } = await supabase.from("User_Emails_Passwords").select().eq("email", emailInput.value);
+            const { data: passwordResult, } = await supabase.from("User_Emails_Passwords").select().eq("password_SHA512", sha512.crypt(passwordInput.value, salt));
+            const { data: isVerified, } = await supabase.from("User_Emails_Passwords").select().eq("is_verified", true);
+            let JSONData = JSON.stringify(emailResult);
+
+            if (JSONData == null || JSONData.length <= 2)
+            {
+                passwordInfoLabel.textContent = passwordInfoLabelText[0];
+                passwordInfoLabel.style.visibility = "visible";
+                return;
+            }
+            else
+            {
+                validityCheckCounter++;
+                passwordInfoLabel.style.visibility = "hidden";
+            }
+                
+            JSONData = JSON.stringify(passwordResult);
+            if (validityCheckCounter >= 3 && (JSONData == null || JSONData.length <= 2))
+            {
+                passwordInfoLabel.textContent = passwordInfoLabelText[1];
+                passwordInfoLabel.style.visibility = "visible";
+                return;
+            }
+            else
+            {
+                validityCheckCounter++;
+                passwordInfoLabel.style.visibility = "hidden";
+            }
+
+            JSONData = JSON.stringify(isVerified);
+            if (validityCheckCounter >= 4 && (JSONData == null || JSONData.length <= 2))
+            {
+                passwordInfoLabel.textContent = passwordInfoLabelText[2];
+                passwordInfoLabel.style.visibility = "visible";
+                return;
+            }
+            else
+            {
+                validityCheckCounter++;
+                passwordInfoLabel.style.visibility = "hidden";
+            }
+
+            if (validityCheckCounter >= 5)
+            {
+                const rUUID = uuid();
+                const { data, error } = await supabase.from("User_Emails_Passwords").update({
+                    session_id: rUUID,
+                }).eq("email", emailInput.value);
+
+                if (error != null)
+                {
+                    passwordInfoLabel.textContent = passwordInfoLabelText[3];
+                    passwordInfoLabel.style.visibility = "visible";
+                }
+                else
+                {
+                    passwordInfoLabel.style.visibility = "visible";
+                    passwordInfoLabel.textContent = passwordInfoLabelText[4];
+                }
+            }
+        }
+        else if (menuIndex == 1 && validityCheckCounter >= 2) { // Account creation
             
             if (confirmPasswordInput.value !== passwordInput.value)
                 confirmPasswordLabel.textContent = confirmPasswordLabelText[1] + "Passwords don't match!";
@@ -173,28 +248,60 @@ const LoginPage = () => {
                     },
                 ]);
 
-                ResetAllInputs();
-                UpdateCrossMenuItems();
+                if (error != null)
+                {
+                    passwordInfoLabel.style.visibility = "visible";
+                    passwordInfoLabel.textContent = passwordInfoLabelText[3];
+                }
+                else
+                {
+                    /*const transporter = nodemailer.createTransport({
+                        service: "gmail",
+                        auth: {
+                            user: process.env.NEXT_PUBLIC_EMAIL,
+                            pass: process.env.NEXT_PUBLIC_EMAIL_PASSWORD,
+                        },
+                    });*/
+
+                    passwordInfoLabel.style.visibility = "hidden";
+                    ResetAllInputs();
+                    UpdateCrossMenuItems();
+                }
             }
-
-            /*const { data: result, error } = await supabase.from("User_Emails_Passwords").select("*") 
-
-            const JSONString : string = JSON.stringify(result);
-            const userDataArr : IDBUserData[] = JSON.parse(JSONString);
-            
-            for (let i = 0; i < userDataArr.length; i++)
-            {
-                console.log(userDataArr[i].email);
-            }*/
         }
-        else if (menuIndex == 2) {
+        else if (menuIndex == 2) // Account validation
+        {
             const { data: result, error } = await supabase.from("User_Emails_Passwords").select().eq("verification_code", Number(confirmPasswordInput.value));
             const JSONData = JSON.stringify(result);
 
-            if (JSONData === null || JSONData.length <= 2)
+            if (JSONData == null || JSONData.length <= 2)
                 confirmPasswordLabel.textContent = confirmPasswordLabelText[menuIndex] + "Incorrect code!";
             else
+            {
+                const { data, error } = await supabase.from("User_Emails_Passwords").update({
+                    is_verified: true,
+                }).eq("email", currEmail);
+
                 confirmPasswordLabel.textContent = confirmPasswordLabelText[menuIndex];
+
+                if (error != null)
+                {
+                    passwordInfoLabel.textContent = passwordInfoLabelText[3];
+                    passwordInfoLabel.style.visibility = "visible";
+                }
+                else
+                {
+                    confirmPassword.style.visibility = "hidden";
+                    loginInputs.style.visibility = "visible";
+                    passwordInfoLabel.style.visibility = "visible";
+                    passwordInfoLabel.textContent = passwordInfoLabelText[5];
+                    
+                    menuIndex = 0;
+                    ResetAllInputs();
+                    ResetAllLabels(0);
+                    UpdateCrossMenuItems();
+                }
+            }
         }
     }
     

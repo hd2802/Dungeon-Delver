@@ -5,5 +5,6 @@ export const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ
 export const minPasswordChars = 10;
 export const maxPasswordChars = 64;
 export const salt = "supasalt";
+export const emailService = "gmail";
 
 export const supabase = createClient(supabaseURL, supabaseAnonKey);
