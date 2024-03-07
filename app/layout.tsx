@@ -2,9 +2,11 @@ import "./globals.css";
 import Footer from "./components/Footer";
 
 export const metadata = {
-  title: "Dungeon Delver: a D&D Companion Website"
+  title: "Dungeon Delver: a D&D Companion Website",
+  icons: {
+    icon: '/icon.png', // /public path
+  },
 };
-
 export default function RootLayout({
   children,
 }: {
@@ -15,6 +17,7 @@ export default function RootLayout({
       <body>
           {children}
           < Footer />
+          
       </body>
     </html>
   )
