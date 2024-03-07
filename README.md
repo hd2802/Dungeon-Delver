@@ -25,6 +25,11 @@ The idea is that Next.js configures both the front end and the back end of the w
 
 ## Using Git
 
+To clone the repository, use the command
+``` 
+git clone https://github.com/hd2802/Dungeon-Delver
+```
+
 To start writing code, create a branch
 
 ``` 
