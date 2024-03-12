@@ -1,0 +1,16 @@
+/*visuals for top bar of all pages, should update when colour scheme is decided*/
+.topbar {
+    background-color: #34495e; /* change when design is decided*/
+    position: fixed; /* stick to set position on screen*/
+    top: 0%;   /* move to top of screen*/
+    height: 100px; 
+    width : 100%;
+    left: 0%;
+}
+
+.topbuttons {
+    position: fixed;
+    top: 5%;
+    left: 250px;
+    background-color: #34495e;
+}
