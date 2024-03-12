@@ -40,7 +40,7 @@ export default function combatTutorial() {
                                 Next
                             </button>
                             <div className="buttond-div-info">
-                            <button onClick={() => handleChoice("intro")}>
+                            <button onClick={() => handleChoice("introduction")}>
                                 Back
                             </button>
                         </div>
