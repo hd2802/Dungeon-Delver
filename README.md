@@ -55,10 +55,13 @@ Commit the changes using the following command:
 ```
 git commit -m "<commit-message>"
 ```
-
 Commit messages need to start capitalised and describe the changes briefly, in the present tense. 
 
 For example, suppose that I made a commit that changes this file, the commit message would be `Changes README.md` or something along those lines.
+
+```
+git push
+```
 
 Navigate to the repository and create a merge request.
 
