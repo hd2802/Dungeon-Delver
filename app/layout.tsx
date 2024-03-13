@@ -9,7 +9,6 @@ export const metadata = {
     icon: "/favicon-32x32.ico",
   },
 };
-
 export default function RootLayout({
   children,
 }: {
@@ -20,6 +19,7 @@ export default function RootLayout({
       <body>
           {children}
           < Footer />
+          
       </body>
     </html>
   )
