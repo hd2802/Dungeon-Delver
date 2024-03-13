@@ -1,5 +1,6 @@
 import "./globals.css";
 import Footer from "./components/Footer";
+import Header from "./components/Header"
 
 require("dotenv").config();
 
@@ -17,9 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-          {children}
-          < Footer />
-          
+        < Header />
+        <div className="topcover"></div>
+        {children}
+        < Footer />
       </body>
     </html>
   )
