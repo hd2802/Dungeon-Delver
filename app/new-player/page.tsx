@@ -18,6 +18,8 @@ export default function tutorial() {
                 <h2>Information</h2>
                 <Link href="/new-player/combat">Combat</Link>
                 <Link href="/new-player/abilities">Ability Scores</Link>
+                <Link href="/new-player/classes">Classes</Link>
+                <Link href="/new-player/races">Races</Link>
             </div>
         </div>
     )
