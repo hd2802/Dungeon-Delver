@@ -1,0 +1,25 @@
+.invisible {
+    visibility: hidden;
+}
+
+.centre-middle-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+label {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: left;
+    width: fit-content;
+    line-height: 40px;
+}
+  
+input {
+    width:200px;
+    height: 20px;
+    margin-bottom: 10px;
+}
