@@ -3,7 +3,7 @@
     background-color: #34495e; /* change when design is decided*/
     position: fixed; /* stick to set position on screen*/
     top: 0%;   /* move to top of screen*/
-    height: 100px; 
+    height: 100px;
     width : 100%;
     left: 0%;
 }
@@ -13,4 +13,9 @@
     top: 5%;
     left: 250px;
     background-color: #34495e;
+}
+
+.topcover {
+    top:0%;
+    height:100px;
 }

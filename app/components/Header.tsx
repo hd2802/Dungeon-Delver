@@ -1,12 +1,12 @@
 import "./styles/Header.css";
-import svglogo2 from "../../public/logo2.svg"
+import logofilled from "../../public/images/favicon_full_filled.png"
 import Image from "next/image";
 import Link from "next/link";
 /*pages: tutorial, homepage*/
 export default function Header() {
     return (
         <div className = "topbar">
-            <Image src={svglogo2} alt="logo image" width="100"/>
+            <Image src={logofilled} alt="logo image" width="90"/>
             <div className="topbuttons">
                 <Link href ="/" passHref>
                     <button type="button">Homepage</button>
