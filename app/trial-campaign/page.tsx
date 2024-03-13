@@ -61,7 +61,7 @@ export default function TrialCampaign() {
         return (
           <div className="outer-div">
               <div className="center-div">
-              <h1> Your First Adventure!</h1>
+              <h1 id="header-1">Your First Adventure!</h1>
               <p>
                 {" "}
                 Dungeons and Dragons is a vast and expansive game to learn how
@@ -182,7 +182,7 @@ export default function TrialCampaign() {
                     Pay the Coin (-1 Gold)
                   </button>
                 <button onClick={() => handleChoice("persuade")}>
-                  Persuade Him That You Don't Need to Pay
+                  Persuade Him
                 </button>
               </div>
             </div>
@@ -234,7 +234,7 @@ export default function TrialCampaign() {
               </div>
               <div className="one-button-div">
               <button onClick={() => rollDice(20, "persuasion")}>
-                Roll for Persuasion
+                Roll
               </button>
               </div>
               {persuasionResult !== null && (
@@ -431,7 +431,7 @@ export default function TrialCampaign() {
               <p> What would you like to do?</p>
               <div className="button-div">
                 <button onClick={() => handleChoice("stealth")}>
-                  Sneak Around the Figure and Try to See What He is Looking At
+                  Sneak Around the Figure
                 </button>
                 <button onClick={() => handleChoice("speak")}>
                   Speak to the Hooded Figure
@@ -670,7 +670,7 @@ export default function TrialCampaign() {
                 Brace yourself!
               </button>
               </div>
-              {banditResult !== null && <p> The Bandit's roll: {banditResult}</p>}
+              {banditResult !== null && <p> Roll: {banditResult}</p>}
 
               {banditResult !== null && banditResult <= 10 && (
                 <div>

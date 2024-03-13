@@ -25,6 +25,11 @@ The idea is that Next.js configures both the front end and the back end of the w
 
 ## Using Git
 
+To clone the repository, use the command
+``` 
+git clone https://github.com/hd2802/Dungeon-Delver
+```
+
 To start writing code, create a branch
 
 ``` 
@@ -50,10 +55,13 @@ Commit the changes using the following command:
 ```
 git commit -m "<commit-message>"
 ```
-
 Commit messages need to start capitalised and describe the changes briefly, in the present tense. 
 
 For example, suppose that I made a commit that changes this file, the commit message would be `Changes README.md` or something along those lines.
+
+```
+git push
+```
 
 Navigate to the repository and create a merge request.
 

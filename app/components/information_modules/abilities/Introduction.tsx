@@ -5,7 +5,7 @@ export default function Introduction() {
             <p>
                 Six abilities provide a quick description of every creature's physical and mental characteristics.
             </p>
-            <ol>
+            <ol className="styled-list">
                 <li>
                     <b>Strength,</b> measuring physical power
                 </li>
