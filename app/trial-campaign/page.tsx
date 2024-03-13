@@ -14,7 +14,6 @@ import tavernImg from "../../public/images/tavern.jpg";
 import dmImg from "../../public/images/dm.jpg";
 
 export default function TrialCampaign() {
-
   const [currentScene, setCurrentScene] = useState("introduction");
   const [persuasionResult, setPersuasionResult] = useState<number | null>(null);
   const [intimidationResult, setIntimidationResult] = useState<number | null>(null);

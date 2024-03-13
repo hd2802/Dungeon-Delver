@@ -1,5 +1,12 @@
 import { test, expect }  from "@playwright/test";
 
+/*
+ * Page 1: Using Ability Scores
+ * Page 2: Ability Scores and Modifiers 
+ * Page 3: Ability Checks 
+ * Page 4: Skills
+*/
+
 test("Abilities: Page 1 renders correctly", async ({page} : {page:any}) => {
     await page.goto("http://localhost:3000/new-player/abilities/");
     
@@ -82,13 +89,10 @@ test("Abilities: Page 4 buttons function correctly and page 5 renders correctly"
 test("Abilities: Page 5 buttons function correctly and page 6 renders correctly", async ({ page }: {page:any}) => {
     await page.goto("http://localhost:3000/new-player/abilities");
 
-    // Navigating forwards to page 2 
+    await page.click("button:has-text('Next')");
     await page.click("button:has-text('Next')");
 
-    // Navigating forwards to page 3
-    await page.click("button:has-text('Next')");
-
-    // Navigating forwards to page 4
+    // Navigating forwards to the skills page
     await page.click("button:has-text('Next')");
     await page.waitForSelector("h1:has-text('Skills')");
 

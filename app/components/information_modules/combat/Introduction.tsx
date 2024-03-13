@@ -2,6 +2,8 @@ export default function combatIntroduction() {
     return (
         <div>
             <h1> Combat </h1>
+            <div className="left-div-t"> 
+
             <p>
                 A typical combat encounter is clash between two sides, a flurry of weapon swings, feints, parries, footwork and spellcasting.
                 The game organises the chaos of combat into a cycle of rounds and turns.
@@ -30,6 +32,7 @@ export default function combatIntroduction() {
                         <b>Begin the next round:</b> When everyone is involved in the combat has had a turn, the rounds ends.
                     </li>
                 </ol>
+                </div>
             </div>
         </div>
     )
