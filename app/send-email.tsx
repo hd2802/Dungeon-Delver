@@ -21,10 +21,12 @@ export const SendConfirmationEmail = async (in_emailData : IVerificationEmailDat
 
         const info = await transporter.sendMail(mailContent);
     }
-    catch (error) {
-        console.error(error);
-        return false;
+    catch (e : unknown) {
+        if (typeof e === "string")
+            return e;
+
+        return "Error: Could not send confirmation email!";
     }
 
-    return true;
+    return "";
 }

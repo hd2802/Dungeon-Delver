@@ -6,7 +6,7 @@ import { sha512 } from "sha512-crypt-ts";
 import "../styles/LoginPage.css";
 import { SendConfirmationEmail } from "../send-email"
 import { UUID } from "crypto";
-import { uuid } from "uuidv4";
+import { v4 } from "uuid";
 
 interface IDBUserData {
     id: number,
@@ -192,7 +192,7 @@ const LoginPage = () => {
 
             if (validityCheckCounter >= 5)
             {
-                const rUUID = uuid();
+                const rUUID = v4();
                 const { data, error } = await supabase.from("User_Emails_Passwords").update({
                     session_id: rUUID,
                 }).eq("email", emailInput.value);
@@ -262,11 +262,25 @@ const LoginPage = () => {
                         message: "Verification code: " + verificationCode.toString(),
                     };
                     
-                    await SendConfirmationEmail(emailData);
+                    const isEmailSent : string = await SendConfirmationEmail(emailData);
 
-                    passwordInfoLabel.style.visibility = "hidden";
+                    if (isEmailSent === "")
+                    {
+                        passwordInfoLabel.style.visibility = "hidden";
+                        ResetAllInputs();
+                        UpdateCrossMenuItems();
+
+                        return;
+                    }
+
+                    menuIndex = 1;
                     ResetAllInputs();
+                    ResetAllLabels(menuIndex)
                     UpdateCrossMenuItems();
+                    
+                    loginInputs.style.visibility = "visible";
+                    passwordInfoLabel.style.visibility = "visible";
+                    passwordInfoLabel.textContent = isEmailSent;
                 }
             }
         }
