@@ -1,9 +1,8 @@
 "use server"
 import nodemailer from "nodemailer"
-import { emailService } from "./supabase";
+import { emailService, IVerificationEmailData, } from "./supabase";
 
-export async function sendGmailEmail(in_recipient : string, in_subject : string, in_message : string) {
-    
+export const SendConfirmationEmail = async (in_emailData : IVerificationEmailData) => {
     try {
         const transporter = nodemailer.createTransport({
             service: emailService,
@@ -12,17 +11,18 @@ export async function sendGmailEmail(in_recipient : string, in_subject : string,
                 pass: process.env.NEXT_PUBLIC_EMAIL_PASSWORD,
             },
         });
-    
+
         const mailContent = {
             from: process.env.NEXT_PUBLIC_EMAIL,
-            to: in_recipient,
-            subject: in_subject,
-            text: in_message,
-        }
-    
+            to: in_emailData.recipient,
+            subject: in_emailData.subject,
+            text: in_emailData.message,
+        };
+
         const info = await transporter.sendMail(mailContent);
     }
     catch (error) {
+        console.error(error);
         return false;
     }
 

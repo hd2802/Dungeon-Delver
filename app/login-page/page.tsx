@@ -1,9 +1,10 @@
-"use client";
+"use client"
 import React, { useState, useEffect } from "react";
-import { supabase, minPasswordChars, maxPasswordChars, salt } from "../supabase";
+import { supabase, minPasswordChars, maxPasswordChars, salt, IVerificationEmailData, } from "../supabase";
 import * as EmailValidator from "email-validator";
 import { sha512 } from "sha512-crypt-ts";
 import "../styles/LoginPage.css";
+import { SendConfirmationEmail } from "../send-email"
 import { UUID } from "crypto";
 import { uuid } from "uuidv4";
 
@@ -255,13 +256,13 @@ const LoginPage = () => {
                 }
                 else
                 {
-                    /*const transporter = nodemailer.createTransport({
-                        service: "gmail",
-                        auth: {
-                            user: process.env.NEXT_PUBLIC_EMAIL,
-                            pass: process.env.NEXT_PUBLIC_EMAIL_PASSWORD,
-                        },
-                    });*/
+                    const emailData : IVerificationEmailData = {
+                        recipient: emailInput.value,
+                        subject: "Email verification - DD",
+                        message: "Verification code: " + verificationCode.toString(),
+                    };
+                    
+                    await SendConfirmationEmail(emailData);
 
                     passwordInfoLabel.style.visibility = "hidden";
                     ResetAllInputs();
@@ -306,7 +307,6 @@ const LoginPage = () => {
     }
     
     const HandleLoginSwitchButtonPress = () => {
-        
         switch (menuIndex)
         {
             case 0: {

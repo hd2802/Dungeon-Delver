@@ -7,4 +7,10 @@ export const maxPasswordChars = 64;
 export const salt = "supasalt";
 export const emailService = "gmail";
 
+export interface IVerificationEmailData {
+    recipient: string,
+    subject: string,
+    message: string
+}
+
 export const supabase = createClient(supabaseURL, supabaseAnonKey);
