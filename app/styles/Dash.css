@@ -4,3 +4,12 @@
     align-items: center;
     flex-direction: column;
 }
+
+.dash-footer {
+    color: black;
+}
+
+.dash-footer:link, .dash-footer:visited {
+    text-decoration: none;
+    color: black
+  }

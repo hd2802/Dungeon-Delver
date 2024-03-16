@@ -35,7 +35,6 @@ export default function combatTutorial() {
                     <div className="outer-div-info">
                         <div className="center-div-info">
                             <Initiative />
-                            Interactive initiative minigame here
                         </div>
                         <div className="buttond-div-info">
                             <button onClick={() => handleChoice("introduction")}>

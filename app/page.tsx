@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <main>
         <div className="logo-image-container">
-          <Image src={svglogo2} alt="logo image" width="180" /> 
+          <Image src={svglogo2} alt="logo image" width="300" /> 
           </div>
 
         <div className="image-container"> 
@@ -20,6 +20,11 @@ export default function Home() {
         <div className="button-container">
           <Link href="/new-player" passHref>
             <button id="route-button" type="button">New Player</button>
+          </Link>
+        </div>
+        <div className="button-container">
+          <Link href="/about" passHref>
+            <button id="route-button" type="button">About</button>
           </Link>
         </div> 
     </main>

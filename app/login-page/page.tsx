@@ -7,6 +7,7 @@ import "../styles/LoginPage.css";
 import { SendConfirmationEmail } from "../send-email"
 import { UUID } from "crypto";
 import { v4 } from "uuid";
+import "./login.css"
 
 interface IDBUserData {
     id: number,
@@ -74,28 +75,30 @@ const LoginPage = () => {
 
     const GetLoginForm = () => {
         return (
-            <form action="">
-                <div id="loginInputs">
-                    <label htmlFor="emailInput" id="emailLabel"> {emailLabelBaseText} </label>
-                    <input type="email" id="emailInput"/>
-                    <label htmlFor="passwordInput" id="passwordLabel"> {passwordLabelBaseText} </label>
-                    <input type="password" id="passwordInput"/>
-                </div>
+            <div className="form-center">
+                <form action="">
+                    <div id="loginInputs">
+                        <label htmlFor="emailInput" id="emailLabel"> {emailLabelBaseText} </label>
+                        <input type="email" id="emailInput"/>
+                        <label htmlFor="passwordInput" id="passwordLabel"> {passwordLabelBaseText} </label>
+                        <input type="password" id="passwordInput"/>
+                    </div>
 
-                <div id="confirmPassword" className="invisible">
-                    <label htmlFor="confirmPasswordInput" id="confirmPasswordLabel"> {confirmPasswordLabelText[1]} </label>
-                    <input type="password" id="confirmPasswordInput"/>
-                </div>
-    
-                <a href="#" id="loginSwitchButton" onClick={HandleLoginSwitchButtonPress}>
-                    {loginSwitchButtonText[0]}
-                </a>
-                <button id="loginButton" type="button" onClick={HandleLoginButtonPress}>
-                    {loginButtonText[0]}
-                </button>
+                    <div id="confirmPassword" className="invisible">
+                        <label htmlFor="confirmPasswordInput" id="confirmPasswordLabel"> {confirmPasswordLabelText[1]} </label>
+                        <input type="password" id="confirmPasswordInput"/>
+                    </div>
+        
+                    <a href="#" id="loginSwitchButton" onClick={HandleLoginSwitchButtonPress}>
+                        {loginSwitchButtonText[0]}
+                    </a>
+                    <button id="loginButton" type="button" onClick={HandleLoginButtonPress}>
+                        {loginButtonText[0]}
+                    </button>
 
-                <label id="passwordInfoLabel" className = "invisible"> <br/> {passwordInfoLabelText[6]} </label>
-            </form>
+                    <label id="passwordInfoLabel" className = "invisible"> <br/> {passwordInfoLabelText[6]} </label>
+                </form>
+            </div>
         );
     }
 
@@ -351,7 +354,7 @@ const LoginPage = () => {
 
     const renderPage = () => {
         return (
-            <div>
+            <div className="login-center">
                 <h1 id="pageHeader"> {pageHeaderText[0]} </h1>
                 {GetLoginForm()}
             </div>
