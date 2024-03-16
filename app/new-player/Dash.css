@@ -1,0 +1,41 @@
+.outer-div-dash {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.header-div-dash {
+    text-align: center;
+}
+
+.dash-section {
+    width: 50%;
+    margin-bottom: 10px;
+}
+
+.new-player-button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Adjust the space between buttons */
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.new-player-dash-button, .new-player-dash-button * {
+    color: white;
+    border: none;
+    padding: 10px 10px;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 300px; /* Fixed width for all buttons */
+    height: 50px; /* Fixed height for all buttons */
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto; /* Center the button, removing repeated margin property */
+}

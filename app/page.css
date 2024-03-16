@@ -12,20 +12,24 @@
 }
 
 .button-container button {
-    font-size: 40px;
+    font-size: 30px;
     padding: 20px 40px;
     margin: 40px auto;
     display: flex;
     position: relative; /* Center the button */
+    width: 400px;
+    height: 60px;
+    justify-content: center;
 }
 
 .logo-image-container {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start; /* Align items to the left within the container */
-    align-items: flex-start; /* Align items to the top within the container */
-    margin-top: 15px;
-    margin-left: 40px;
+    justify-content: center; /* Align items to the left within the container */
+    align-items: center; /* Align items to the top within the container */
+    margin-top: 20px;
+    margin-left: 20px;
+    
 }
 
 .dash-center {
