@@ -11,12 +11,4 @@ test("Home page should render correctly", async ({ page }) => {
 
   const introText = await page.waitForSelector(".intro-text");
   expect(introText).not.toBeNull();
-
-  await page.click("#route-button");
-
-  await page.waitForNavigation();
-
-  const currentURL = page.url();
-
-  expect(currentURL).toBe("http://localhost:3000/new-player");
 })

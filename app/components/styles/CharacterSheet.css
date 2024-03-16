@@ -1,0 +1,55 @@
+.character-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.character-card {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    width: 30%;
+}
+
+.row-divider {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.display-race-div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cc-button {
+    background-color: #99a5af;
+}
+
+.cc-button-link {
+    background-color: #99a5af;
+    color: white;
+    text-decoration: none;
+}
+
+.cc-button-link:visited {
+    text-decoration: none;
+}
+
+.detail-selector-div {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+#detail-next-button {
+    float: right;
+}
+
+#points-buy-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
