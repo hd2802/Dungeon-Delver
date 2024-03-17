@@ -20,7 +20,9 @@ export default function RootLayout({
       <body>
         < Header />
         <div className="topcover"></div>
+        <div id="wrapper">
         {children}
+        </div>
         < Footer />
       </body>
     </html>

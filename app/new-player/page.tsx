@@ -14,7 +14,7 @@ export default function Tutorial() {
                     <Link href="/trial-campaign">
                         <button className="new-player-dash-button">Trial Campaign</button>
                     </Link>
-                    <Link href="/">
+                    <Link href="/character-builder">
                         <button className="new-player-dash-button">Character Creation Wizard</button>
                     </Link>
                 </div>

@@ -1,7 +1,11 @@
+"use client"
+import CharacterSheet from "../components/CharacterSheet";
+import "../styles/CharacterSheetContainer.css";
+
 export default function CharacterSheetCreator() {
     return (
-        <div>
-            <h1> Character Sheet Creator</h1>
+        <div className="character-container-div">
+            <CharacterSheet/>
         </div>
     )
 }
