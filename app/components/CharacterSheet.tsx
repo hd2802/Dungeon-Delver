@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import Skills from "./Skills";
 import Spells from "./Spells";
 import PointsBuy from "./PointsBuy";
-import { IDBCharacterData } from "./Server"
+import { GetIfCharacterAlreadyExists, IDBCharacterData } from "./Server"
 import { IDBAbilityScores } from "./ability-scores"
 import classData, { ClassData } from "./classData"
 import raceData, { RaceData, IDBRaceData} from "./raceData"
@@ -30,6 +30,8 @@ export default function CharacterSheet() {
     Charisma: 8
   });
 
+  let modifiedAbilityScores = { ...abilityScores };
+
   const changePage = (page: string) => {
     setPage(page);
   };
@@ -51,7 +53,6 @@ export default function CharacterSheet() {
 
   const GetIsLoggedIn = async () => {
     let isLoggedInLabel = document.getElementById("isLoggedInLabel") as HTMLLabelElement;
-    let saveCharacterInfoLabel = document.getElementById("saveCharacterInfoLabel") as HTMLLabelElement;
     const currSessionID = sessionStorage.getItem("sessionID");
 
     if (currSessionID == null)
@@ -62,8 +63,6 @@ export default function CharacterSheet() {
     
     if (isLoggedInLabel != null)
       isLoggedInLabel.textContent = "You are logged in and can save your character.";
-    if (saveCharacterInfoLabel != null)
-      saveCharacterInfoLabel.textContent = "You are logged in and can save your character.";
   }
 
   useEffect(() => {
@@ -72,7 +71,7 @@ export default function CharacterSheet() {
 
   const Encode = () : IDBCharacterData => {
     const characterName = (document.getElementById("characterNameInput") as HTMLInputElement).textContent; 
-    const DBAbilityScores = { ...abilityScores };
+    const DBAbilityScores = modifiedAbilityScores;
     
     const DBRaceData : IDBRaceData = {
       name: selectedRace ? selectedRace.name : "",
@@ -93,6 +92,7 @@ export default function CharacterSheet() {
     };
 
     const result : IDBCharacterData = {
+      id_character_name: "",
       id: -1,
       character_name: characterName ? characterName : "",
       class_name: selectedClass ? selectedClass : "",
@@ -117,8 +117,6 @@ export default function CharacterSheet() {
     let characterData : IDBCharacterData = Encode();
     characterData.character_name = (document.getElementById("characterNameInput") as HTMLInputElement).value || "";
 
-    console.log(document.getElementById("characterNameInput") as HTMLInputElement);
-
     if (characterData.character_name === "")
     {
       let saveCharacterInfoLabel = document.getElementById("saveCharacterInfoLabel") as HTMLLabelElement;
@@ -126,7 +124,12 @@ export default function CharacterSheet() {
       return;
     }
     
-    
+    const doesCharacterAlreadyExists = await GetIfCharacterAlreadyExists(characterData.character_name, currSessionID);
+    if (doesCharacterAlreadyExists != 1)
+    {
+      saveCharacterInfoLabel.textContent = "Cannot save character! Character with entered name already exists!";
+      return;
+    }
 
     const result = await StoreCharacterData(currSessionID, characterData);
     if (result === "")
@@ -267,7 +270,6 @@ export default function CharacterSheet() {
         )
       
       case "points-buy":
-        const modifiedAbilityScores = { ...abilityScores };
         if (selectedRace)
         {
           for(const ability in selectedRace.abilityScoreModifiers) 
@@ -321,7 +323,7 @@ export default function CharacterSheet() {
                 <label id="characterNameLabel" htmlFor="characterNameInput"> Character name: </label>
                 <input id="characterNameInput" type="text"></input>
                 <button id="saveCharacterButton" type="button" className="" onClick={HandleSaveCharacterButtonPress}> Save character </button><br/>
-                <label id="saveCharacterInfoLabel"> Please login to save your character. </label>
+                <label id="saveCharacterInfoLabel"> </label>
               </div>
             </form>
         </div>
