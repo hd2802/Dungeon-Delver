@@ -56,7 +56,7 @@ export const GetIfCharacterAlreadyExists = async (in_characterName : string, in_
     return 0;
 }
 
-export const StoreCharacterData = async(in_sessionID : string, in_characterData : IDBCharacterData) => {
+export const StoreCharacterData = async (in_sessionID : string, in_characterData : IDBCharacterData) => {
     const userID = await GetUserID(in_sessionID) || -1;
 
     if (userID < 0)
@@ -70,4 +70,27 @@ export const StoreCharacterData = async(in_sessionID : string, in_characterData 
         return error.message;
     
     return "";
+}
+
+export const GetCharacterData = async (in_sessionID : string) => {
+    const userID = await GetUserID(in_sessionID);
+
+    if (userID < 0)
+        return [];
+
+    const { data: result, error } = await supabase.from("User_Characters").select().eq("id", userID);
+    const JSONData = JSON.stringify(result);
+
+    if (error != null || JSONData.length <= 2)
+        return []
+
+    let retVal : IDBCharacterData[] = [];
+    for (let i = 0; i < result.length; i++)
+    {
+        const tempJSONData = JSON.stringify(result);
+        console.log(JSON.parse(result[i]) as IDBCharacterData);
+        retVal.push(JSON.parse(result[i]) as IDBCharacterData);
+    }
+
+    return retVal;
 }
