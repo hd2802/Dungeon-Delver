@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <main>
+    <main suppressHydrationWarning>
         <div className="logo-image-container">
           <Image src={svglogo2} alt="logo image" width="300" /> 
           </div>

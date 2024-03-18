@@ -142,16 +142,38 @@ export default function CharacterSheet() {
     switch (page) {
       case "intro":
         return (
-          <div>
-            <h1> Character Creator </h1>
-            <button onClick={() => changePage("race")}>
-              Next
-            </button> <br/>
-            <label id="isLoggedInLabel"> You're not logged in, and won't be able to save your character.  </label>
-            
-          </div>
-        )
-
+            <div>
+                <h1>Character Creator</h1>
+                <p>Welcome to the Character Creator for Dungeons and Dragons!</p>
+                <p>Creating a character sheet is the first step in your epic journey through the realms of D&D.</p>
+                <p>
+                    Your character sheet is a vital document containing all the important details about your character,
+                    from their mechanical stats to their rich backstory.
+                </p>
+                <p>
+                    In D&D, your character consists of two main components:
+                    <ul>
+                        <li>
+                            <b>Class:</b> This represents your character's profession or role in the adventuring world.
+                            Your class determines your character's abilities, skills, and combat style.
+                            Whether you're a sneaky rogue, a powerful wizard, or a stalwart fighter, your class defines
+                            how you approach challenges and interact with the world.
+                        </li>
+                        <li>
+                            <b>Race:</b> Your character's race provides essential backstory information,
+                            detailing their culture, appearance, and heritage.
+                            Additionally, your race affects your character's ability scores, languages spoken,
+                            and sometimes grants special abilities or traits.
+                        </li>
+                    </ul>
+                </p>
+                <p>
+                    Let's embark on this journey together! Click the button below to begin creating your character.
+                </p>
+                <label id="isLoggedInLabel"> You're not logged in, and won't be able to save your character.  </label>
+                <button id="detail-next-button" onClick={() => changePage("race")}>Next</button>
+            </div>
+        );
       case "race":
         return (
           <div>
