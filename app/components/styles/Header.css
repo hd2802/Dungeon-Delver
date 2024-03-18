@@ -10,7 +10,7 @@
 
 .topbuttons {
     position: fixed;
-    top: 5%;
+    top: 40px;
     left: 250px;
     background-color: #34495e;
 }
