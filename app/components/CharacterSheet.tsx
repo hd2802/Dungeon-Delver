@@ -2,7 +2,7 @@
 import "./styles/CharacterSheet.css";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Skills from "./Skills";
 import Spells from "./Spells";
 import PointsBuy from "./PointsBuy";
@@ -10,7 +10,7 @@ import { IDBCharacterData } from "./Server"
 import { IDBAbilityScores } from "./ability-scores"
 import classData, { ClassData } from "./classData"
 import raceData, { RaceData, IDBRaceData} from "./raceData"
-import { StoreCharacterData } from "./Server"
+import { StoreCharacterData, GetIsValidSession } from "./Server"
 
 export default function CharacterSheet() {
   const [page, setPage] = useState("intro");
@@ -48,6 +48,27 @@ export default function CharacterSheet() {
       [ability]: value
     }));
   };
+
+  const GetIsLoggedIn = async () => {
+    let isLoggedInLabel = document.getElementById("isLoggedInLabel") as HTMLLabelElement;
+    let saveCharacterInfoLabel = document.getElementById("saveCharacterInfoLabel") as HTMLLabelElement;
+    const currSessionID = sessionStorage.getItem("sessionID");
+
+    if (currSessionID == null)
+      return;
+
+    if (await !GetIsValidSession(currSessionID))
+      return;
+    
+    if (isLoggedInLabel != null)
+      isLoggedInLabel.textContent = "You are logged in and can save your character.";
+    if (saveCharacterInfoLabel != null)
+      saveCharacterInfoLabel.textContent = "You are logged in and can save your character.";
+  }
+
+  useEffect(() => {
+    GetIsLoggedIn();
+  }, [])
 
   const Encode = () : IDBCharacterData => {
     const characterName = (document.getElementById("characterNameInput") as HTMLInputElement).textContent; 
@@ -89,20 +110,42 @@ export default function CharacterSheet() {
     if (currSessionID == null)
       return;
 
-    console.log(currSessionID);
-    console.log(StoreCharacterData(currSessionID, Encode()));
+    if (await !GetIsValidSession(currSessionID))
+      return;
+
+    let saveCharacterInfoLabel = document.getElementById("saveCharacterInfoLabel") as HTMLLabelElement;
+    let characterData : IDBCharacterData = Encode();
+    characterData.character_name = (document.getElementById("characterNameInput") as HTMLInputElement).value || "";
+
+    console.log(document.getElementById("characterNameInput") as HTMLInputElement);
+
+    if (characterData.character_name === "")
+    {
+      let saveCharacterInfoLabel = document.getElementById("saveCharacterInfoLabel") as HTMLLabelElement;
+      saveCharacterInfoLabel.textContent = "Cannot save character! Character must have name!";
+      return;
+    }
+    
+    
+
+    const result = await StoreCharacterData(currSessionID, characterData);
+    if (result === "")
+      saveCharacterInfoLabel.textContent = "Character saved sucessfully!";
+    else
+      saveCharacterInfoLabel.textContent = result;
   }
 
   const renderPage = () => {
     switch (page) {
-
       case "intro":
         return (
           <div>
             <h1> Character Creator </h1>
             <button onClick={() => changePage("race")}>
               Next
-            </button>
+            </button> <br/>
+            <label id="isLoggedInLabel"> You're not logged in, and won't be able to save your character.  </label>
+            
           </div>
         )
 
@@ -277,7 +320,8 @@ export default function CharacterSheet() {
               <div id="characterSaveDiv">
                 <label id="characterNameLabel" htmlFor="characterNameInput"> Character name: </label>
                 <input id="characterNameInput" type="text"></input>
-                <button id="saveCharacterButton" type="button" className="" onClick={HandleSaveCharacterButtonPress}> Save character </button>
+                <button id="saveCharacterButton" type="button" className="" onClick={HandleSaveCharacterButtonPress}> Save character </button><br/>
+                <label id="saveCharacterInfoLabel"> Please login to save your character. </label>
               </div>
             </form>
         </div>

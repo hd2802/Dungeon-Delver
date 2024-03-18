@@ -12,7 +12,7 @@ export interface IDBCharacterData {
     ability_data: string;
 }
 
-const GetIsValidSession = async (in_sessionID : string) => {
+const GetUserID = async (in_sessionID : string) => {
     if (in_sessionID == null)
         return -1;
 
@@ -29,8 +29,21 @@ const GetIsValidSession = async (in_sessionID : string) => {
     return userIDs[0];
 }
 
+export const GetIsValidSession = async (in_sessionID : string) => {
+    const userID = await GetUserID(in_sessionID);
+
+    return (userID < 0) ? false : true;
+}
+
+export const GetIfCharacterAlreadyExists = async (in_characterName : string, in_sessionID: string) => {
+    if (in_sessionID == null)
+        return -1;
+
+    
+}
+
 export const StoreCharacterData = async(in_sessionID : string, in_characterData : IDBCharacterData) => {
-    const userID = await GetIsValidSession(in_sessionID) || -1;
+    const userID = await GetUserID(in_sessionID) || -1;
 
     if (userID < 0)
         return "Invalid session, please try logging in.";
