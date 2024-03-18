@@ -17,6 +17,9 @@ export default function Header() {
                 <Link href ="/character-builder" passHref className="header-link">
                     <button type="button">Character Creator</button>
                 </Link>
+                <Link href ="/character-viewer" passHref className="header-link">
+                    <button type="button">Character Viewer</button>
+                </Link>
                 <Link href ="/compendium" passHref className="header-link">
                     <button type="button">Information Compendium</button>
                 </Link>
