@@ -1,14 +1,7 @@
 "use client"
 import "../components/styles/CharacterSheet.css";
-import Image from "next/image";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import Skills from "../components/Skills";
-import Spells from "../components/Spells";
-import PointsBuy from "../components/PointsBuy";
 import { GetIfCharacterAlreadyExists, IDBCharacterData } from "../components/Server"
-import { IDBAbilityScores } from "../components/ability-scores"
-import classData, { ClassData } from "../components/classData"
 import raceData, { RaceData, IDBRaceData} from "../components/raceData"
 import { StoreCharacterData, GetIsValidSession, GetCharacterData } from "../components/Server"
 
@@ -34,22 +27,11 @@ export default function CharacterSheetViewer() {
 
     const addCharacters = (in_characterData : IDBCharacterData[]) => {
         for (let i = 0; i < in_characterData.length; i++)
-            setCharacters([...characters, in_characterData[i].character_name]);
+        {
+            characters.push(in_characterData[i].character_name);
+        }
     }
     
-    /*const ProcessCharacterData = async () => {
-        const currSessionID = sessionStorage.getItem("sessionID") || "";
-
-        if (currSessionID === "")
-            return;
-
-        const characterData = await GetCharacterData(currSessionID)
-        if (characterData.length == 0)
-            return;
-
-        setSelectedRace();
-    }*/
-
     const SetupPage = async () => {
         const loginStatusLabel = document.getElementById("loginStatusLabel");
         const currSessionID = sessionStorage.getItem("sessionID");
@@ -57,14 +39,97 @@ export default function CharacterSheetViewer() {
         if (currSessionID == null)
             return;
 
-        characterData = await GetCharacterData(currSessionID);
-        if (characterData.length == 0 && loginStatusLabel != null)
+        if (await !GetIsValidSession(currSessionID) && loginStatusLabel != null)
         {
-            loginStatusLabel.textContent = "Could not retrieve characters: there are none."
+            loginStatusLabel.textContent = "Could not retrieve characters: You are not logged in.";
             return;
         }
 
+        characterData = await GetCharacterData(currSessionID);
+        if (characterData.length == 0 && loginStatusLabel != null)
+        {
+            loginStatusLabel.textContent = "Could not retrieve characters: there are none.";
+            return;
+        }
+        else if(loginStatusLabel != null)
+            loginStatusLabel.textContent = "Characters successfully retrieved.";
+
         addCharacters(characterData);
+    }
+
+    const UpdateCharacterSelect = () => {
+        const characterSelect = document.getElementById("characterSelect") as HTMLSelectElement;
+        const statsButton = document.getElementById("statsButton") as HTMLButtonElement;
+        if (characterSelect == null || statsButton == null)
+            return;
+
+        if (characterData.length == 0)
+            return;
+        
+        characterSelect.style.visibility = "visible";
+        statsButton.style.visibility = "visible";
+        for (let i = 0; i < characterData.length; i++)
+        {
+            let tempOption = document.createElement("option");
+            tempOption.value = characterData[i].character_name;
+            tempOption.innerHTML = characterData[i].character_name;
+            characterSelect.appendChild(tempOption);
+        }
+    }
+
+    const GetCharacterStats = () => {
+        const characterSelect = document.getElementById("characterSelect") as HTMLSelectElement;
+        const characterStatsDiv = document.getElementById("characterStatsDiv") as HTMLDivElement;
+        if (characterSelect == null || characterStatsDiv == null)
+            return;
+
+        characterStatsDiv.style.visibility = "visible";
+
+        const raceLabel = document.getElementById("raceLabel") as HTMLHeadElement;
+        const descriptionLabel = document.getElementById("descriptionLabel") as HTMLParagraphElement;
+        const rTLabel = document.getElementById("rTLabel") as HTMLParagraphElement;
+        const classLabel = document.getElementById("classLabel") as HTMLHeadElement;
+        const sSLabel = document.getElementById("sSLabel") as HTMLParagraphElement;
+        const sSPLabel = document.getElementById("sSPLabel") as HTMLParagraphElement;
+        let abilityLabel = document.getElementById("abilityLabel") as HTMLUListElement;
+
+        const selectedCharacterIndex = characterSelect.selectedIndex;
+        const selectedCharacterData = characterData[selectedCharacterIndex];
+        
+        const tempRaceData = JSON.parse(selectedCharacterData.race_data) as RaceData;
+        const tempSelectedSkills = JSON.parse(selectedCharacterData.skills_data) as string[];
+        const tempSelectedSpells = JSON.parse(selectedCharacterData.spells_data) as string[];
+        const tempAbilityScores = JSON.parse(selectedCharacterData.ability_data) as { [key: string]: number };
+
+        raceLabel.textContent = "Race: " + tempRaceData.name;
+        descriptionLabel.textContent = "Description: " + tempRaceData.description;
+        rTLabel.textContent = "Racial Traits: " + tempRaceData.traits;
+        classLabel.textContent = "Class: " + selectedCharacterData.class_name;
+        sSLabel.textContent = "Selected skills: " + tempSelectedSkills.join(", ");
+
+        if (tempSelectedSpells.length !== 0)
+            sSPLabel.textContent = "Selected spells: " + tempSelectedSpells.join(", ");
+
+        abilityLabel.innerHTML = "";
+        Object.entries(tempAbilityScores).forEach(([ability, score]) => {
+            const tempLI = document.createElement("li");
+            tempLI.setAttribute("key", ability);
+            
+            const tempStrongElem = document.createElement("strong");
+            tempStrongElem.textContent = ability + ": ";
+            tempLI.appendChild(tempStrongElem);
+
+            tempLI.appendChild(document.createTextNode(score.toString()));
+
+            if (tempRaceData.abilityScoreModifiers[ability])
+            {
+                const tempSpanElem = document.createElement("span");
+                tempSpanElem.textContent = " (Racial modifier: " + tempRaceData.abilityScoreModifiers[ability] + ")";
+                tempLI.appendChild(tempSpanElem);
+            }
+
+            abilityLabel.appendChild(tempLI);
+        })
     }
 
     useEffect(() => {
@@ -73,40 +138,40 @@ export default function CharacterSheetViewer() {
 
     const RenderPage = () => {
         return <div>
-            <label id="loginStatusLabel"> Characters cannot be retrieved, you are not logged in. </label>
-            <ul>
+            <form action="">
+                <div id="characterLoadDiv">
+                    <label id="loginStatusLabel"> Characters cannot be retrieved, you are not logged in. </label>
+                    <button type="button" onClick={UpdateCharacterSelect}> Display characters </button>
+                </div>
+            </form>
+            <select id="characterSelect" className="invisible">
                 {characters.map((character, index) => (
                     <li key={index}> {character} </li>
                 ))}
-            </ul>
-            <h1>Character Summary</h1>
+            </select>
+            <br/><button type="button" id="statsButton" className="invisible" onClick={GetCharacterStats}> Display character stats </button>
+            
+            <div id="characterStatsDiv" className="invisible">
+                <h1>Character Summary</h1>
 
-            <h2>Race: {selectedRace ? selectedRace.name : "Not selected"}</h2>
-            <p>Description: {selectedRace ? selectedRace.description : ""}</p>
-            <p>Racial Traits: {selectedRace ? selectedRace.traits : ""}</p>
-            <h2>Class: {selectedClass ? selectedClass : "Not selected"}</h2>
-            <p>Selected skills: {selectedSkills.join(", ")}</p>
-            {selectedSpells.length !== 0 && (
-                <p>Selected spells: {selectedSpells.join(", ")}</p>
-            )}
-            <h2>Ability Scores and Modifiers</h2>
-            <ul>
-                {Object.entries(abilityScores).map(([ability, score]) => (
-                    <li key={ability}>
-                        <strong>{ability}:</strong> {score}
-                        {selectedRace && selectedRace.abilityScoreModifiers[ability] &&
-                            <span> (Racial modifier: {selectedRace.abilityScoreModifiers[ability]})</span>
-                        }
-                    </li>
-                ))}
-            </ul>
-            <form action="">
-                <div id="characterSaveDiv">
-                <label id="characterNameLabel" htmlFor="characterNameInput"> Character name: </label>
-                <input id="characterNameInput" type="text"></input>
-                <label id="saveCharacterInfoLabel"> </label>
-                </div>
-            </form>
+                <h2 id="raceLabel">Race: {selectedRace ? selectedRace.name : "Not selected"}</h2>
+                <p id="descriptionLabel">Description: {selectedRace ? selectedRace.description : ""}</p>
+                <p id="rTLabel">Racial Traits: {selectedRace ? selectedRace.traits : ""}</p>
+                <h2 id="classLabel">Class: {selectedClass ? selectedClass : "Not selected"}</h2>
+                <p id="sSLabel">Selected skills: {selectedSkills.join(", ")}</p>
+                <p id="sSPLabel">Selected spells: {selectedSpells.join(", ")}</p>
+                <h2>Ability Scores and Modifiers</h2>
+                <ul id="abilityLabel">
+                    {Object.entries(abilityScores).map(([ability, score]) => (
+                        <li key={ability}>
+                            <strong>{ability}:</strong> {score}
+                            {selectedRace && selectedRace.abilityScoreModifiers[ability] &&
+                                <span> (Racial modifier: {selectedRace.abilityScoreModifiers[ability]})</span>
+                            }
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </div>
     }
     

@@ -87,9 +87,8 @@ export const GetCharacterData = async (in_sessionID : string) => {
     let retVal : IDBCharacterData[] = [];
     for (let i = 0; i < result.length; i++)
     {
-        const tempJSONData = JSON.stringify(result);
-        console.log(JSON.parse(result[i]) as IDBCharacterData);
-        retVal.push(JSON.parse(result[i]) as IDBCharacterData);
+        const tempJSONData = JSON.stringify(result[i]);
+        retVal.push(JSON.parse(tempJSONData) as IDBCharacterData);
     }
 
     return retVal;

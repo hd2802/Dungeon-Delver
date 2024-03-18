@@ -83,12 +83,12 @@ export default function CharacterSheet() {
     };
     
     const DBAbilityData : IDBAbilityScores = {
-      strength: DBAbilityScores["Strength"],
-      dexterity: DBAbilityScores["Dexterity"],
-      constitution: DBAbilityScores["Constitution"],
-      intelligence: DBAbilityScores["Intelligence"],
-      wisdom: DBAbilityScores["Widsom"],
-      charisma: DBAbilityScores["Charisma"],
+      Strength: DBAbilityScores["Strength"],
+      Dexterity: DBAbilityScores["Dexterity"],
+      Constitution: DBAbilityScores["Constitution"],
+      Intelligence: DBAbilityScores["Intelligence"],
+      Wisdom: DBAbilityScores["Widsom"],
+      Charisma: DBAbilityScores["Charisma"],
     };
 
     const result : IDBCharacterData = {
