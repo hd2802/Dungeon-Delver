@@ -17,6 +17,15 @@ export interface RaceData {
     altText: string;
 }
 
+export interface IDBRaceData {
+    name: string;
+    description: string;
+    traits: string;
+    abilityScoreModifiers: { [key:string]:number};
+    imageName: string;
+    altText: string;
+}
+
 const raceData: RaceData[] = [
     {
         name: "Dragonborn",

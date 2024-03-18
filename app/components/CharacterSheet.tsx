@@ -1,3 +1,4 @@
+"use client"
 import "./styles/CharacterSheet.css";
 import Image from "next/image";
 import Link from "next/link";
@@ -5,9 +6,11 @@ import React, { useState } from "react";
 import Skills from "./Skills";
 import Spells from "./Spells";
 import PointsBuy from "./PointsBuy";
-
+import { IDBCharacterData } from "./Server"
+import { IDBAbilityScores } from "./ability-scores"
 import classData, { ClassData } from "./classData"
-import raceData, { RaceData } from "./raceData"
+import raceData, { RaceData, IDBRaceData} from "./raceData"
+import { StoreCharacterData } from "./Server"
 
 export default function CharacterSheet() {
   const [page, setPage] = useState("intro");
@@ -45,6 +48,50 @@ export default function CharacterSheet() {
       [ability]: value
     }));
   };
+
+  const Encode = () : IDBCharacterData => {
+    const characterName = (document.getElementById("characterNameInput") as HTMLInputElement).textContent; 
+    const DBAbilityScores = { ...abilityScores };
+    
+    const DBRaceData : IDBRaceData = {
+      name: selectedRace ? selectedRace.name : "",
+      description: selectedRace ? selectedRace.description : "",
+      traits: selectedRace ? selectedRace.traits : "",
+      abilityScoreModifiers: selectedRace ? selectedRace.abilityScoreModifiers : {"" : -1},
+      imageName:"" ,
+      altText:""
+    };
+    
+    const DBAbilityData : IDBAbilityScores = {
+      strength: DBAbilityScores["Strength"],
+      dexterity: DBAbilityScores["Dexterity"],
+      constitution: DBAbilityScores["Constitution"],
+      intelligence: DBAbilityScores["Intelligence"],
+      wisdom: DBAbilityScores["Widsom"],
+      charisma: DBAbilityScores["Charisma"],
+    };
+
+    const result : IDBCharacterData = {
+      id: -1,
+      character_name: characterName ? characterName : "",
+      class_name: selectedClass ? selectedClass : "",
+      race_data: JSON.stringify(DBRaceData),
+      skills_data: JSON.stringify(selectedSkills),
+      spells_data: JSON.stringify(selectedSpells),
+      ability_data: JSON.stringify(DBAbilityData),
+    };
+    
+    return result;
+  }
+
+  const HandleSaveCharacterButtonPress = async () => {
+    const currSessionID = sessionStorage.getItem("sessionID");
+    if (currSessionID == null)
+      return;
+
+    console.log(currSessionID);
+    console.log(StoreCharacterData(currSessionID, Encode()));
+  }
 
   const renderPage = () => {
     switch (page) {
@@ -226,6 +273,13 @@ export default function CharacterSheet() {
                     </li>
                 ))}
             </ul>
+            <form action="">
+              <div id="characterSaveDiv">
+                <label id="characterNameLabel" htmlFor="characterNameInput"> Character name: </label>
+                <input id="characterNameInput" type="text"></input>
+                <button id="saveCharacterButton" type="button" className="" onClick={HandleSaveCharacterButtonPress}> Save character </button>
+              </div>
+            </form>
         </div>
         )
 

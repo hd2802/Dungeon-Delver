@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect } from "react";
-import { supabase, minPasswordChars, maxPasswordChars, salt, IVerificationEmailData, } from "../supabase";
+import { supabase, minPasswordChars, maxPasswordChars, salt, IVerificationEmailData, IDBUserData} from "../supabase";
 import * as EmailValidator from "email-validator";
 import { sha512 } from "sha512-crypt-ts";
 import "../styles/LoginPage.css";
@@ -8,15 +8,6 @@ import { SendConfirmationEmail } from "../send-email"
 import { UUID } from "crypto";
 import { v4 } from "uuid";
 import "./login.css"
-
-interface IDBUserData {
-    id: number,
-    session_id: UUID
-    email: string,
-    verification_code: number,
-    password_SHA512: string,
-    is_verified: boolean
-}
 
 const LoginPage = () => {
     // Index 0 contains login text, index 1 contains account creation text.
@@ -209,6 +200,9 @@ const LoginPage = () => {
                 {
                     passwordInfoLabel.style.visibility = "visible";
                     passwordInfoLabel.textContent = passwordInfoLabelText[4];
+
+                    sessionStorage.setItem("sessionID", rUUID.toString());
+                    window.location.href = "/";
                 }
             }
         }
