@@ -41,7 +41,13 @@
     color: white;
 }
 
-a:link, a:visited {
+.button-link:link, .button-link:visited {
     text-decoration: none;
     color: white
   }
+
+#link-list {
+    display: flex;
+    flex-direction: column;
+}
+
