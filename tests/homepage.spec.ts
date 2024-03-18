@@ -11,4 +11,8 @@ test("Home page should render correctly", async ({ page }) => {
 
   const introText = await page.waitForSelector(".intro-text");
   expect(introText).not.toBeNull();
+
+  const newPlayerButton = await page.waitForSelector("button");
+  expect(newPlayerButton).not.toBeNull();
+  await newPlayerButton.click();
 })
