@@ -249,7 +249,7 @@ export default function CharacterSheet() {
                   <b>Saves:</b> {classItem.saves}
                 </p>
                 <button className="cc-button">
-                  <Link className="cc-button-link" href={classItem.link}>
+                  <Link className="cc-button-link" href={classItem.link} target="_blank">
                     More Information
                   </Link>
                 </button>
