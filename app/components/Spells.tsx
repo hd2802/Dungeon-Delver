@@ -44,45 +44,49 @@ const Spells: React.FC<SpellsProps> = ({ selectedClass, selectedSpells, setSelec
     }
     return (
         <div>
-            <h2>{selectedClass} Spells</h2>
-            <h3>Cantrips</h3>
-            <ul>
-                {spellData[selectedClass][0].map((spell) => (
-                    <li key={spell}>
-                        <label>
-                            <input
-                                type="checkbox"
-                                checked={selectedSpells.includes(spell)}
-                                onChange={() => {
-                                    selectedSpells.includes(spell) ?
-                                        handleSpellDeselect(spell) :
-                                        handleSpellSelect(spell);
-                                }}
-                            />
-                            {spell}
-                        </label>
-                    </li>
-                ))}
-            </ul>
-            <h3>1st Level Spells</h3>
-            <ul>
-                {spellData[selectedClass][1].map((spell) => (
-                    <li key={spell}>
-                        <label>
-                            <input
-                                type="checkbox"
-                                checked={selectedSpells.includes(spell)}
-                                onChange={() => {
-                                    selectedSpells.includes(spell) ?
-                                        handleSpellDeselect(spell) :
-                                        handleSpellSelect(spell);
-                                }}
-                            />
-                            {spell}
-                        </label>
-                    </li>
-                ))}
-            </ul>
+            {selectedSpells.length !== 0 && (
+                <div>
+                            <h2>{selectedClass} Spells</h2>
+                            <h3>Cantrips</h3>
+                            <ul>
+                                {spellData[selectedClass][0].map((spell) => (
+                                    <li key={spell}>
+                                        <label>
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedSpells.includes(spell)}
+                                                onChange={() => {
+                                                    selectedSpells.includes(spell) ?
+                                                        handleSpellDeselect(spell) :
+                                                        handleSpellSelect(spell);
+                                                }}
+                                            />
+                                            {spell}
+                                        </label>
+                                    </li>
+                                ))}
+                            </ul>
+                            <h3>1st Level Spells</h3>
+                            <ul>
+                                {spellData[selectedClass][1].map((spell) => (
+                                    <li key={spell}>
+                                        <label>
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedSpells.includes(spell)}
+                                                onChange={() => {
+                                                    selectedSpells.includes(spell) ?
+                                                        handleSpellDeselect(spell) :
+                                                        handleSpellSelect(spell);
+                                                }}
+                                            />
+                                            {spell}
+                                        </label>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+            )}
         </div>
     );
 }
