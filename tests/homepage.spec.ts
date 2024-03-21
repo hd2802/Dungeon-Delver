@@ -1,18 +1,15 @@
-import { test, expect } from "@playwright/test";
+import { test } from '@playwright/test';
 
-test("Home page should render correctly", async ({ page }) => {
+test('Homepage: New Player Button functions as expected', async ({ page }) => {
+  await page.goto('http://localhost:3000/');
+
+  await page.getByRole('button', { name: 'New Player', exact: true }).click();
+  await page.waitForURL("**/new-player");
+});
+
+test("Homepage: about page functions as expected", async ({ page }) => {
   await page.goto("http://localhost:3000/");
 
-  const logoImage = await page.waitForSelector(".logo-image-container");
-  expect(logoImage).not.toBeNull();
-
-  const titleImage = await page.waitForSelector(".image-container");
-  expect(titleImage).not.toBeNull();
-
-  const introText = await page.waitForSelector(".intro-text");
-  expect(introText).not.toBeNull();
-
-  const newPlayerButton = await page.waitForSelector("button");
-  expect(newPlayerButton).not.toBeNull();
-  await newPlayerButton.click();
+  await page.getByRole("button", { name: "About" }).click();
+  await page.waitForURL("**/about");
 })
