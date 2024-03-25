@@ -37,6 +37,9 @@ const PointsBuy: React.FC<PointsBuyProps> = ({ abilityScores, onAbilityScoreChan
     return (
         <div>
           <h2>Points Buy System</h2>
+          <div>
+            Points remaining: {currentPoints}
+          </div>
           <table>
             <thead>
               <tr>

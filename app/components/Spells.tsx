@@ -32,7 +32,7 @@ const Spells: React.FC<SpellsProps> = ({ selectedClass, selectedSpells, setSelec
         const currentCantrips = selectedSpells.filter(spell => spellData[selectedClass][0]);
         const currentSpells = selectedSpells.filter(spell => spellData[selectedClass][1]);
 
-        if (currentCantrips.length > maxCantrips || currentSpells.length > maxFirstLevel)
+        if (currentCantrips.length > maxCantrips + 1 || currentSpells.length > maxFirstLevel + 1)
         {
             return;
         }
@@ -42,9 +42,24 @@ const Spells: React.FC<SpellsProps> = ({ selectedClass, selectedSpells, setSelec
     const handleSpellDeselect = (spell: string) => {
         setSelectedSpells(selectedSpells.filter((sp) => sp !== spell));
     }
+
+    const spellClassCheck = (cls: string) => {
+        if(cls === "Barbarian" || cls === "Monk" || cls === "Paladin" || cls === "Fighter" || cls === "Rogue") {
+            return false;
+        }
+        return true;
+    }
+
+    const firstSpellClassCheck = (cls: string) => {
+        if (cls === "Warlock") {
+            return false;
+        }
+        return true;
+    }
+
     return (
         <div>
-            {selectedSpells.length !== 0 && (
+            {spellClassCheck(selectedClass) && (
                 <div>
                             <h2>{selectedClass} Spells</h2>
                             <h3>Cantrips</h3>
@@ -66,25 +81,30 @@ const Spells: React.FC<SpellsProps> = ({ selectedClass, selectedSpells, setSelec
                                     </li>
                                 ))}
                             </ul>
-                            <h3>1st Level Spells</h3>
-                            <ul>
-                                {spellData[selectedClass][1].map((spell) => (
-                                    <li key={spell}>
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                checked={selectedSpells.includes(spell)}
-                                                onChange={() => {
-                                                    selectedSpells.includes(spell) ?
-                                                        handleSpellDeselect(spell) :
-                                                        handleSpellSelect(spell);
-                                                }}
-                                            />
-                                            {spell}
-                                        </label>
-                                    </li>
-                                ))}
-                            </ul>
+                            {firstSpellClassCheck(selectedClass) && (
+                                <div>
+                                <h3>1st Level Spells</h3>
+                                <ul>
+                                    {spellData[selectedClass][1].map((spell) => (
+                                        <li key={spell}>
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={selectedSpells.includes(spell)}
+                                                    onChange={() => {
+                                                        selectedSpells.includes(spell) ?
+                                                            handleSpellDeselect(spell) :
+                                                            handleSpellSelect(spell);
+                                                    }}
+                                                />
+                                                {spell}
+                                            </label>
+                                        </li>
+                                    ))}
+                                </ul>
+                                </div>
+                            )}
+                                                        
                         </div>
             )}
         </div>
