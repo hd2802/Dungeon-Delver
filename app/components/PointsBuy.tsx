@@ -5,7 +5,7 @@ interface PointsBuyProps {
     onAbilityScoreChange: (ability:string, value:number) => void;
 }
 
-const MAX_POINTS = 27
+const MAX_POINTS = 25
 
 const PointsBuy: React.FC<PointsBuyProps> = ({ abilityScores, onAbilityScoreChange}) => {  
     const [currentPoints, setCurrentPoints] = useState(MAX_POINTS);
