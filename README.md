@@ -1,5 +1,7 @@
 # Dungeon-Delver
 
+This repository stores the website created for a Bath University Software Processes and Modelling Module, crafted to teach students how to work in groups working on a software project. The website is incomplete and not working in areas but valuable lessons were learnt for all involved.
+
 ## Technologies Used
 - Development: Next.js (React, Javascript, HTML, CSS)
 - Testing: Playwright
